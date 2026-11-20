@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+/* Modo oscuro controlado por la clase "dark" en <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+	scroll-behavior: smooth;
+}
