@@ -1,7 +1,7 @@
 ---
-title: "Proyecto de ejemplo: API REST"
-description: "Descripción de ejemplo de un proyecto de backend con base de datos y autenticación."
-tech: ["Python", "FastAPI", "PostgreSQL"]
+title: 'Proyecto de ejemplo: API REST'
+description: 'Descripción de ejemplo de un proyecto de backend con base de datos y autenticación.'
+tech: ['Python', 'FastAPI', 'PostgreSQL']
 date: 2026-08-01
 featured: true
 placeholder: true

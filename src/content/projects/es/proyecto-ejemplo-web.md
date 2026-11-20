@@ -1,7 +1,7 @@
 ---
-title: "Proyecto de ejemplo: aplicación web"
-description: "Descripción de ejemplo de una aplicación web con demo en línea."
-tech: ["React", "TypeScript", "Node.js"]
+title: 'Proyecto de ejemplo: aplicación web'
+description: 'Descripción de ejemplo de una aplicación web con demo en línea.'
+tech: ['React', 'TypeScript', 'Node.js']
 date: 2026-03-01
 featured: false
 placeholder: true

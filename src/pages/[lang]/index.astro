@@ -20,7 +20,7 @@ const featured = (await getProjects(lang)).filter((p) => p.data.featured).slice(
 ---
 
 <Layout lang={lang}>
-	<main class="mx-auto max-w-3xl px-6">
+	<main id="main" class="mx-auto max-w-3xl px-6">
 		<Hero lang={lang} />
 		<About lang={lang} />
 		<Experience lang={lang} />
@@ -29,17 +29,15 @@ const featured = (await getProjects(lang)).filter((p) => p.data.featured).slice(
 			<!-- Cada proyecto de ejemplo ya lleva su propia etiqueta -->
 			<SectionHeading lang={lang} title={t('projects.featured')} showPlaceholder={false} />
 
-			{
-				featured.length > 0 ? (
-					<div class="mt-6 grid gap-5 sm:grid-cols-2">
-						{featured.map((project) => (
-							<ProjectCard project={project} lang={lang} />
-						))}
-					</div>
-				) : (
-					<p class="mt-4 text-slate-600 dark:text-slate-400">{t('projects.empty')}</p>
-				)
-			}
+			{featured.length > 0 ? (
+				<div class="mt-6 grid gap-5 sm:grid-cols-2">
+					{featured.map((project) => (
+						<ProjectCard project={project} lang={lang} />
+					))}
+				</div>
+			) : (
+				<p class="mt-4 text-slate-600 dark:text-slate-400">{t('projects.empty')}</p>
+			)}
 
 			<a
 				href={`/${lang}/projects/`}

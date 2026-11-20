@@ -14,19 +14,17 @@ const projects = await getProjects(lang);
 ---
 
 <Layout lang={lang} altPath="projects/" title={`${t('projects.title')} | Francisco Romero`}>
-	<main class="mx-auto max-w-3xl px-6 py-16">
+	<main id="main" class="mx-auto max-w-3xl px-6 py-16">
 		<h1 class="text-3xl font-bold tracking-tight">{t('projects.title')}</h1>
 
-		{
-			projects.length > 0 ? (
-				<div class="mt-8 grid gap-5 sm:grid-cols-2">
-					{projects.map((project) => (
-						<ProjectCard project={project} lang={lang} />
-					))}
-				</div>
-			) : (
-				<p class="mt-6 text-slate-600 dark:text-slate-400">{t('projects.empty')}</p>
-			)
-		}
+		{projects.length > 0 ? (
+			<div class="mt-8 grid gap-5 sm:grid-cols-2">
+				{projects.map((project) => (
+					<ProjectCard project={project} lang={lang} />
+				))}
+			</div>
+		) : (
+			<p class="mt-6 text-slate-600 dark:text-slate-400">{t('projects.empty')}</p>
+		)}
 	</main>
 </Layout>

@@ -11,7 +11,11 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const links = [
-	{ label: t('contact.email'), value: profile.contact.email, href: `mailto:${profile.contact.email}` },
+	{
+		label: t('contact.email'),
+		value: profile.contact.email,
+		href: `mailto:${profile.contact.email}`,
+	},
 	{
 		label: t('contact.linkedin'),
 		value: profile.contact.linkedin.replace('https://www.', ''),
@@ -30,20 +34,18 @@ const links = [
 	<p class="mt-4 max-w-xl text-slate-600 dark:text-slate-400">{t('contact.intro')}</p>
 
 	<ul class="mt-6 divide-y divide-slate-200 rounded-xl border border-slate-200 dark:divide-slate-800 dark:border-slate-800">
-		{
-			links.map((link) => (
-				<li>
-					<a
-						href={link.href}
-						target={link.href.startsWith('mailto:') ? undefined : '_blank'}
-						rel="noopener noreferrer"
-						class="flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-slate-50 dark:hover:bg-slate-900"
-					>
-						<span class="text-sm font-medium">{link.label}</span>
-						<span class="truncate text-sm text-slate-600 dark:text-slate-400">{link.value} ↗</span>
-					</a>
-				</li>
-			))
-		}
+		{links.map((link) => (
+			<li>
+				<a
+					href={link.href}
+					target={link.href.startsWith('mailto:') ? undefined : '_blank'}
+					rel="noopener noreferrer"
+					class="flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-slate-50 dark:hover:bg-slate-900"
+				>
+					<span class="text-sm font-medium">{link.label}</span>
+					<span class="truncate text-sm text-slate-600 dark:text-slate-400">{link.value} ↗</span>
+				</a>
+			</li>
+		))}
 	</ul>
 </section>

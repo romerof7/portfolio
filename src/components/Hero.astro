@@ -24,21 +24,23 @@ const secondaryButton =
 	<p class="mt-4 max-w-xl text-slate-600 dark:text-slate-400">{data.intro}</p>
 
 	<div class="mt-8 flex flex-wrap gap-3">
-		<a href={`/${lang}/projects/`} class={primaryButton}>{t('hero.ctaProjects')}</a>
-		<a href={`/${lang}/#contacto`} class={secondaryButton}>{t('hero.ctaContact')}</a>
-		{
-			cv ? (
-				<a href={cv} download class={secondaryButton}>
-					{t('cv.download')}
-				</a>
-			) : (
-				<span
-					class="cursor-not-allowed rounded-lg border border-dashed border-slate-300 px-4 py-2 text-sm text-slate-400 dark:border-slate-700 dark:text-slate-500"
-					aria-disabled="true"
-				>
-					{t('cv.soon')}
-				</span>
-			)
-		}
+		<a href={`/${lang}/projects/`} class={primaryButton}>
+			{t('hero.ctaProjects')}
+		</a>
+		<a href={`/${lang}/#contacto`} class={secondaryButton}>
+			{t('hero.ctaContact')}
+		</a>
+		{cv ? (
+			<a href={cv} download class={secondaryButton}>
+				{t('cv.download')}
+			</a>
+		) : (
+			<span
+				class="cursor-not-allowed rounded-lg border border-dashed border-slate-300 px-4 py-2 text-sm text-slate-400 dark:border-slate-700 dark:text-slate-500"
+				aria-disabled="true"
+			>
+				{t('cv.soon')}
+			</span>
+		)}
 	</div>
 </section>

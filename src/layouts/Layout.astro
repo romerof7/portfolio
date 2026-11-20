@@ -57,11 +57,14 @@ const personJsonLd = {
 		{noindex && <meta name="robots" content="noindex" />}
 		<link rel="canonical" href={canonical} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" href="/favicon.ico" sizes="32x32" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
 
 		<!-- Le avisa a los buscadores que existe la misma página en otro idioma -->
-		{alternates.map((alt) => <link rel="alternate" hreflang={alt.code} href={alt.href} />)}
+		{alternates.map((alt) => (
+			<link rel="alternate" hreflang={alt.code} href={alt.href} />
+		))}
 		<link rel="alternate" hreflang="x-default" href={alternates[0].href} />
 
 		<!-- Vista previa al compartir (WhatsApp, LinkedIn, etc.) -->
@@ -97,6 +100,13 @@ const personJsonLd = {
 		</script>
 	</head>
 	<body class="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+		<!-- Para quien navega con teclado: salta el menú y va directo al contenido -->
+		<a
+			href="#main"
+			class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:bg-slate-900 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white dark:focus:bg-white dark:focus:text-slate-900"
+		>
+			{t('a11y.skip')}
+		</a>
 		<Header lang={lang} altPath={altPath} />
 		<slot />
 		<Footer lang={lang} />

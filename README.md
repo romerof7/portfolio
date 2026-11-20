@@ -52,14 +52,15 @@ public/               # favicon, imagen de vista previa y archivos estáticos
 
 ```md
 ---
-title: "Nombre del proyecto"
-description: "Qué hace, en una o dos líneas"
-tech: ["Python", "FastAPI"]
+title: 'Nombre del proyecto'
+description: 'Qué hace, en una o dos líneas'
+tech: ['Python', 'FastAPI']
 date: 2026-11-19
-repo: "https://github.com/usuario/proyecto"
-demo: "https://..."        # opcional
-featured: true             # true = aparece en la home
+repo: 'https://github.com/usuario/proyecto'
+demo: 'https://...' # opcional
+featured: true # true = aparece en la home
 ---
+
 Texto más largo del proyecto en Markdown.
 ```
 

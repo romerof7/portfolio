@@ -1,0 +1,32 @@
+name: CI
+
+# Corre en cada push a cualquier rama, así se chequea antes de mergear a main
+on:
+  push:
+  pull_request:
+
+# Solo lectura: este workflow no necesita escribir nada en el repo
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Formato (Prettier)
+        run: npm run format:check
+
+      - name: Tipos (astro check)
+        run: npm run check
+
+      - name: Build
+        run: npm run build

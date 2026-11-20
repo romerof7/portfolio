@@ -12,6 +12,7 @@ export const ui = {
 		'meta.title': 'Francisco Romero | Portfolio',
 		'meta.description': 'Portfolio de Francisco Romero',
 		'nav.label': 'Navegación principal',
+		'a11y.skip': 'Saltar al contenido',
 		'nav.about': 'Sobre mí',
 		'nav.experience': 'Experiencia',
 		'nav.projects': 'Proyectos',
@@ -43,8 +44,7 @@ export const ui = {
 		'projects.demo': 'Demo',
 		'projects.empty': 'Todavía no hay proyectos cargados.',
 		'projects.placeholder': 'Ejemplo',
-		'projects.placeholderNote':
-			'Este proyecto es un ejemplo y se va a reemplazar por uno real.',
+		'projects.placeholderNote': 'Este proyecto es un ejemplo y se va a reemplazar por uno real.',
 		'contact.title': 'Contacto',
 		'contact.intro':
 			'¿Querés charlar sobre un proyecto, una oportunidad o simplemente saludar? Escribime.',
@@ -56,6 +56,7 @@ export const ui = {
 		'meta.title': 'Francisco Romero | Portfolio',
 		'meta.description': "Francisco Romero's portfolio",
 		'nav.label': 'Main navigation',
+		'a11y.skip': 'Skip to content',
 		'nav.about': 'About',
 		'nav.experience': 'Experience',
 		'nav.projects': 'Projects',
@@ -87,11 +88,10 @@ export const ui = {
 		'projects.demo': 'Demo',
 		'projects.empty': 'No projects have been added yet.',
 		'projects.placeholder': 'Example',
-		'projects.placeholderNote':
-			'This project is an example and will be replaced with a real one.',
+		'projects.placeholderNote': 'This project is an example and will be replaced with a real one.',
 		'contact.title': 'Contact',
 		'contact.intro':
-			"Want to talk about a project, an opportunity, or just say hi? Drop me a line.",
+			'Want to talk about a project, an opportunity, or just say hi? Drop me a line.',
 		'contact.email': 'Email',
 		'contact.linkedin': 'LinkedIn',
 		'contact.github': 'GitHub',

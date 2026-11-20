@@ -1,9 +1,9 @@
 ---
-title: "Portfolio personal"
-description: "Sitio web bilingüe (español e inglés) para mostrar mis proyectos y mi experiencia."
-tech: ["Astro", "Tailwind CSS", "TypeScript"]
+title: 'Portfolio personal'
+description: 'Sitio web bilingüe (español e inglés) para mostrar mis proyectos y mi experiencia.'
+tech: ['Astro', 'Tailwind CSS', 'TypeScript']
 date: 2026-11-19
-repo: "https://github.com/romerof7/portfolio"
+repo: 'https://github.com/romerof7/portfolio'
 featured: true
 placeholder: true
 ---
