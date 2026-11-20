@@ -1,10 +1,22 @@
 ---
+import { languages, useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
 const links = [
-	{ href: '#inicio', label: 'Inicio' },
-	{ href: '#sobre-mi', label: 'Sobre mí' },
-	{ href: '#proyectos', label: 'Proyectos' },
-	{ href: '#contacto', label: 'Contacto' },
+	{ href: '#inicio', label: t('nav.home') },
+	{ href: '#sobre-mi', label: t('nav.about') },
+	{ href: '#proyectos', label: t('nav.projects') },
+	{ href: '#contacto', label: t('nav.contact') },
 ];
+
+// Link al mismo sitio en el otro idioma
+const otherLang: Lang = lang === 'es' ? 'en' : 'es';
 ---
 
 <header
@@ -12,7 +24,7 @@ const links = [
 >
 	<nav
 		class="mx-auto flex max-w-3xl items-center justify-between px-6 py-4"
-		aria-label="Navegación principal"
+		aria-label={t('nav.label')}
 	>
 		<a href="#inicio" class="font-semibold tracking-tight">FR</a>
 
@@ -30,14 +42,25 @@ const links = [
 				))
 			}
 			<li>
+				<a
+					href={`/${otherLang}/`}
+					hreflang={otherLang}
+					lang={otherLang}
+					class="rounded-md border border-slate-300 px-2 py-1 text-xs uppercase transition-colors hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
+					aria-label={`${t('lang.switch')}: ${languages[otherLang]}`}
+				>
+					{otherLang}
+				</a>
+			</li>
+			<li>
 				<button
 					id="theme-toggle"
 					type="button"
 					class="rounded-md border border-slate-300 px-2 py-1 text-xs transition-colors hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
-					aria-label="Cambiar entre modo claro y oscuro"
+					aria-label={t('theme.toggle')}
 				>
-					<span class="dark:hidden">🌙 Oscuro</span>
-					<span class="hidden dark:inline">☀️ Claro</span>
+					<span class="dark:hidden">{t('theme.dark')}</span>
+					<span class="hidden dark:inline">{t('theme.light')}</span>
 				</button>
 			</li>
 		</ul>
