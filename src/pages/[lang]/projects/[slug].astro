@@ -1,0 +1,98 @@
+---
+import { render } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import { languages, useTranslations, type Lang } from '../../../i18n/ui';
+import { formatDate, getProjects, projectSlug } from '../../../lib/projects';
+
+export async function getStaticPaths() {
+	const paths = [];
+	for (const lang of Object.keys(languages) as Lang[]) {
+		for (const project of await getProjects(lang)) {
+			paths.push({ params: { lang, slug: projectSlug(project) }, props: { project } });
+		}
+	}
+	return paths;
+}
+
+const { project } = Astro.props;
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+const { title, description, tech, date, repo, demo, placeholder } = project.data;
+const { Content } = await render(project);
+---
+
+<Layout
+	lang={lang}
+	altPath={`projects/${projectSlug(project)}/`}
+	title={`${title} | Francisco Romero`}
+	description={description}
+>
+	<main class="mx-auto max-w-3xl px-6 py-16">
+		<a
+			href={`/${lang}/projects/`}
+			class="text-sm text-slate-600 underline-offset-4 hover:underline dark:text-slate-400"
+		>
+			{t('projects.back')}
+		</a>
+
+		<header class="mt-6">
+			<h1 class="text-3xl font-bold tracking-tight">{title}</h1>
+			<time
+				datetime={date.toISOString()}
+				class="mt-2 block text-sm text-slate-500 first-letter:uppercase"
+			>
+				{formatDate(date, lang)}
+			</time>
+			<p class="mt-4 text-lg text-slate-600 dark:text-slate-400">{description}</p>
+
+			<ul class="mt-4 flex flex-wrap gap-2">
+				{
+					tech.map((name) => (
+						<li class="rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+							{name}
+						</li>
+					))
+				}
+			</ul>
+
+			<div class="mt-5 flex flex-wrap gap-4 text-sm font-medium">
+				{
+					repo && (
+						<a
+							href={repo}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="underline-offset-4 hover:underline"
+						>
+							{t('projects.repo')} ↗
+						</a>
+					)
+				}
+				{
+					demo && (
+						<a
+							href={demo}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="underline-offset-4 hover:underline"
+						>
+							{t('projects.demo')} ↗
+						</a>
+					)
+				}
+			</div>
+		</header>
+
+		{
+			placeholder && (
+				<p class="mt-8 rounded-lg bg-amber-50 p-4 text-sm text-amber-800 dark:bg-amber-900/20 dark:text-amber-300">
+					{t('projects.placeholderNote')}
+				</p>
+			)
+		}
+
+		<article class="prose prose-slate mt-10 max-w-none dark:prose-invert">
+			<Content />
+		</article>
+	</main>
+</Layout>

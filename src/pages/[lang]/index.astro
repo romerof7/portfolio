@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
 import { languages, useTranslations, type Lang } from '../../i18n/ui';
+import { getProjects } from '../../lib/projects';
 
 export function getStaticPaths() {
 	return Object.keys(languages).map((lang) => ({ params: { lang } }));
@@ -8,6 +10,8 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
+
+const featured = (await getProjects(lang)).filter((p) => p.data.featured).slice(0, 3);
 ---
 
 <Layout lang={lang}>
@@ -25,8 +29,26 @@ const t = useTranslations(lang);
 		</section>
 
 		<section id="proyectos" class="scroll-mt-20 py-20">
-			<h2 class="text-2xl font-semibold">{t('projects.title')}</h2>
-			<p class="mt-4 text-slate-600 dark:text-slate-400">{t('soon')}</p>
+			<h2 class="text-2xl font-semibold">{t('projects.featured')}</h2>
+
+			{
+				featured.length > 0 ? (
+					<div class="mt-6 grid gap-5 sm:grid-cols-2">
+						{featured.map((project) => (
+							<ProjectCard project={project} lang={lang} />
+						))}
+					</div>
+				) : (
+					<p class="mt-4 text-slate-600 dark:text-slate-400">{t('projects.empty')}</p>
+				)
+			}
+
+			<a
+				href={`/${lang}/projects/`}
+				class="mt-8 inline-block text-sm font-medium underline-offset-4 hover:underline"
+			>
+				{t('projects.viewAll')} →
+			</a>
 		</section>
 
 		<section id="contacto" class="scroll-mt-20 py-20">

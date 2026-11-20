@@ -3,19 +3,22 @@ import { languages, useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
 	lang: Lang;
+	/** Ruta de esta página sin el idioma, ej. "projects/mi-proyecto/". Vacío = home. */
+	altPath?: string;
 }
 
-const { lang } = Astro.props;
+const { lang, altPath = '' } = Astro.props;
 const t = useTranslations(lang);
 
+// Las anchors llevan el idioma para que también funcionen desde otras páginas
 const links = [
-	{ href: '#inicio', label: t('nav.home') },
-	{ href: '#sobre-mi', label: t('nav.about') },
-	{ href: '#proyectos', label: t('nav.projects') },
-	{ href: '#contacto', label: t('nav.contact') },
+	{ href: `/${lang}/#inicio`, label: t('nav.home') },
+	{ href: `/${lang}/#sobre-mi`, label: t('nav.about') },
+	{ href: `/${lang}/#proyectos`, label: t('nav.projects') },
+	{ href: `/${lang}/#contacto`, label: t('nav.contact') },
 ];
 
-// Link al mismo sitio en el otro idioma
+// Link a esta misma página en el otro idioma
 const otherLang: Lang = lang === 'es' ? 'en' : 'es';
 ---
 
@@ -26,7 +29,7 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
 		class="mx-auto flex max-w-3xl items-center justify-between px-6 py-4"
 		aria-label={t('nav.label')}
 	>
-		<a href="#inicio" class="font-semibold tracking-tight">FR</a>
+		<a href={`/${lang}/`} class="font-semibold tracking-tight">FR</a>
 
 		<ul class="flex items-center gap-5 text-sm">
 			{
@@ -43,7 +46,7 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
 			}
 			<li>
 				<a
-					href={`/${otherLang}/`}
+					href={`/${otherLang}/${altPath}`}
 					hreflang={otherLang}
 					lang={otherLang}
 					class="rounded-md border border-slate-300 px-2 py-1 text-xs uppercase transition-colors hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"

@@ -5,10 +5,16 @@ import { languages, useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
 	lang: Lang;
+	/** Ruta de esta página sin el idioma (vacío = home). La usan el selector de idioma y hreflang. */
+	altPath?: string;
+	title?: string;
+	description?: string;
 }
 
-const { lang } = Astro.props;
+const { lang, altPath = '' } = Astro.props;
 const t = useTranslations(lang);
+const title = Astro.props.title ?? t('meta.title');
+const description = Astro.props.description ?? t('meta.description');
 ---
 
 <!doctype html>
@@ -16,16 +22,16 @@ const t = useTranslations(lang);
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="description" content={t('meta.description')} />
+		<meta name="description" content={description} />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<title>{t('meta.title')}</title>
+		<title>{title}</title>
 
 		<!-- Le avisa a los buscadores que existe la misma página en otro idioma -->
 		{
 			Object.keys(languages).map((code) => (
-				<link rel="alternate" hreflang={code} href={`/${code}/`} />
+				<link rel="alternate" hreflang={code} href={`/${code}/${altPath}`} />
 			))
 		}
 
@@ -44,7 +50,7 @@ const t = useTranslations(lang);
 		</script>
 	</head>
 	<body class="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-		<Header lang={lang} />
+		<Header lang={lang} altPath={altPath} />
 		<slot />
 	</body>
 </html>
