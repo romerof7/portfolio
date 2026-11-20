@@ -1,5 +1,6 @@
 ---
 import { languages, useTranslations, type Lang } from '../i18n/ui';
+import { profile } from '../data/profile';
 
 interface Props {
 	lang: Lang;
@@ -12,10 +13,12 @@ const t = useTranslations(lang);
 
 // Las anchors llevan el idioma para que también funcionen desde otras páginas
 const links = [
-	{ href: `/${lang}/#sobre-mi`, label: t('nav.about') },
-	{ href: `/${lang}/#experiencia`, label: t('nav.experience') },
-	{ href: `/${lang}/#proyectos`, label: t('nav.projects') },
-	{ href: `/${lang}/#contacto`, label: t('nav.contact') },
+	{ href: `/${lang}/#about`, label: t('nav.about') },
+	...(profile[lang].timeline.length > 0
+		? [{ href: `/${lang}/#experience`, label: t('nav.experience') }]
+		: []),
+	{ href: `/${lang}/#projects`, label: t('nav.projects') },
+	{ href: `/${lang}/#contact`, label: t('nav.contact') },
 ];
 
 // Link a esta misma página en el otro idioma

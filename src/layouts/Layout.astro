@@ -41,7 +41,7 @@ const personJsonLd = {
 	name: profile.name,
 	url: new URL(`/${lang}/`, site).href,
 	jobTitle: profile[lang].role,
-	sameAs: [profile.contact.github],
+	sameAs: [profile.contact.github].filter(Boolean),
 };
 ---
 
@@ -56,6 +56,19 @@ const personJsonLd = {
 		<meta name="theme-color" content="#0f172a" />
 		{noindex && <meta name="robots" content="noindex" />}
 		<link rel="canonical" href={canonical} />
+
+		<!-- Sin JavaScript no se puede quitar el esqueleto: se muestran las imágenes directamente -->
+		<noscript>
+			<style>
+				.skeleton-img[data-skeleton] {
+					animation: none;
+					background: none;
+				}
+				.skeleton-img[data-skeleton] img {
+					opacity: 1;
+				}
+			</style>
+		</noscript>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" sizes="32x32" />
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />

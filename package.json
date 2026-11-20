@@ -2,6 +2,8 @@
   "name": "portfolio",
   "type": "module",
   "version": "0.0.1",
+  "private": true,
+  "description": "Portfolio personal bilingüe (español e inglés) hecho con Astro y Tailwind",
   "engines": {
     "node": ">=22.23.4"
   },

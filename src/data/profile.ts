@@ -1,3 +1,4 @@
+import type { ImageMetadata } from 'astro';
 import type { Lang } from '../i18n/ui';
 
 /**
@@ -6,8 +7,19 @@ import type { Lang } from '../i18n/ui';
  * Cuando cargues los reales: reemplazá los textos de ejemplo, y poné
  * `isPlaceholder = false` para que desaparezcan las etiquetas "Ejemplo".
  * (Los proyectos se cargan aparte, en src/content/projects/.)
+ *
+ * Los campos opcionales (contacto, listas) se pueden borrar o dejar vacíos:
+ * lo que no tenga datos simplemente no se muestra.
  */
 export const isPlaceholder = true;
+
+// Tu foto: poné UN archivo (jpg, png o webp) en src/assets/profile/ y se usa solo, ya optimizado.
+// Sin foto se muestran tus iniciales.
+const photos = import.meta.glob<{ default: ImageMetadata }>(
+	'../assets/profile/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG}',
+	{ eager: true },
+);
+const photo = Object.values(photos)[0]?.default;
 
 export interface TimelineItem {
 	type: 'work' | 'education';
@@ -30,17 +42,23 @@ interface LocalizedProfile {
 	timeline: TimelineItem[];
 }
 
-export const profile = {
+interface Profile {
+	name: string;
+	photo?: ImageMetadata;
+	cv: Record<Lang, string | undefined>;
+	contact: { email?: string; linkedin?: string; github?: string };
+}
+
+export const profile: Profile & Record<Lang, LocalizedProfile> = {
 	name: 'Francisco Romero',
 
-	/** Ruta de tu foto dentro de /public, ej. '/foto.jpg'. Sin foto se muestran las iniciales. */
-	photo: undefined as string | undefined,
+	photo,
 
 	/** Ruta de tu CV en PDF dentro de /public, ej. '/cv-es.pdf'. Sin CV el botón queda deshabilitado. */
 	cv: {
 		es: undefined,
 		en: undefined,
-	} as Record<Lang, string | undefined>,
+	},
 
 	contact: {
 		email: 'tu-email@ejemplo.com',
@@ -111,9 +129,4 @@ export const profile = {
 			},
 		],
 	},
-} satisfies {
-	name: string;
-	photo: string | undefined;
-	cv: Record<Lang, string | undefined>;
-	contact: { email: string; linkedin: string; github: string };
-} & Record<Lang, LocalizedProfile>;
+};

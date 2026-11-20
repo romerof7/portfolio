@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import type { ComponentProps } from 'astro/types';
+
+/**
+ * Imagen optimizada que muestra un esqueleto (un bloque gris que pulsa) mientras carga.
+ * Recibe las mismas props que <Image>, más `wrapperClass` para dimensionar el contenedor.
+ * Al cargar (o fallar) se quita el atributo data-skeleton y la imagen aparece con un fundido.
+ */
+type Props = ComponentProps<typeof Image> & { wrapperClass?: string };
+
+const { wrapperClass, class: className, ...imageProps } = Astro.props;
+const done = "this.parentElement.removeAttribute('data-skeleton')";
+---
+
+<div class:list={['skeleton-img', wrapperClass]} data-skeleton>
+	<Image {...imageProps} class={className} onload={done} onerror={done} />
+</div>

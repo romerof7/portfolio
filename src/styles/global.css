@@ -7,3 +7,17 @@
 html {
 	scroll-behavior: smooth;
 }
+
+/* Esqueleto de carga de imágenes (ver components/SkeletonImage.astro) */
+.skeleton-img {
+	overflow: hidden;
+}
+.skeleton-img img {
+	transition: opacity 300ms ease;
+}
+.skeleton-img[data-skeleton] {
+	@apply animate-pulse bg-slate-200 motion-reduce:animate-none dark:bg-slate-800;
+}
+.skeleton-img[data-skeleton] img {
+	opacity: 0;
+}

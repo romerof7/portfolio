@@ -9,43 +9,43 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const { email, linkedin, github } = profile.contact;
 
+// Solo se muestran los medios de contacto que tengan dato
 const links = [
-	{
-		label: t('contact.email'),
-		value: profile.contact.email,
-		href: `mailto:${profile.contact.email}`,
-	},
-	{
+	email && { label: t('contact.email'), value: email, href: `mailto:${email}` },
+	linkedin && {
 		label: t('contact.linkedin'),
-		value: profile.contact.linkedin.replace('https://www.', ''),
-		href: profile.contact.linkedin,
+		value: linkedin.replace(/^https?:\/\/(www\.)?/, ''),
+		href: linkedin,
 	},
-	{
+	github && {
 		label: t('contact.github'),
-		value: profile.contact.github.replace('https://', ''),
-		href: profile.contact.github,
+		value: github.replace(/^https?:\/\/(www\.)?/, ''),
+		href: github,
 	},
-];
+].filter((link) => !!link);
 ---
 
-<section id="contacto" class="scroll-mt-20 py-16">
+<section id="contact" class="scroll-mt-20 py-16">
 	<SectionHeading lang={lang} title={t('contact.title')} />
 	<p class="mt-4 max-w-xl text-slate-600 dark:text-slate-400">{t('contact.intro')}</p>
 
-	<ul class="mt-6 divide-y divide-slate-200 rounded-xl border border-slate-200 dark:divide-slate-800 dark:border-slate-800">
-		{links.map((link) => (
-			<li>
-				<a
-					href={link.href}
-					target={link.href.startsWith('mailto:') ? undefined : '_blank'}
-					rel="noopener noreferrer"
-					class="flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-slate-50 dark:hover:bg-slate-900"
-				>
-					<span class="text-sm font-medium">{link.label}</span>
-					<span class="truncate text-sm text-slate-600 dark:text-slate-400">{link.value} ↗</span>
-				</a>
-			</li>
-		))}
-	</ul>
+	{links.length > 0 && (
+		<ul class="mt-6 divide-y divide-slate-200 rounded-xl border border-slate-200 dark:divide-slate-800 dark:border-slate-800">
+			{links.map((link) => (
+				<li>
+					<a
+						href={link.href}
+						target={link.href.startsWith('mailto:') ? undefined : '_blank'}
+						rel="noopener noreferrer"
+						class="flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-slate-50 dark:hover:bg-slate-900"
+					>
+						<span class="text-sm font-medium">{link.label}</span>
+						<span class="truncate text-sm text-slate-600 dark:text-slate-400">{link.value} ↗</span>
+					</a>
+				</li>
+			))}
+		</ul>
+	)}
 </section>

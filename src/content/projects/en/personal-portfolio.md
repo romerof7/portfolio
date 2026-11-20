@@ -2,6 +2,8 @@
 title: 'Personal portfolio'
 description: 'Bilingual website (Spanish and English) to showcase my projects and experience.'
 tech: ['Astro', 'Tailwind CSS', 'TypeScript']
+image: '../../../assets/projects/ejemplo.png'
+imageAlt: 'Example screenshot'
 date: 2026-11-19
 repo: 'https://github.com/romerof7/portfolio'
 featured: true

@@ -1,6 +1,8 @@
 ---
 import { render } from 'astro:content';
+import { getImage } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
+import SkeletonImage from '../../../components/SkeletonImage.astro';
 import { languages, useTranslations, type Lang } from '../../../i18n/ui';
 import { formatDate, getProjects, projectSlug } from '../../../lib/projects';
 
@@ -17,8 +19,13 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
-const { title, description, tech, date, repo, demo, placeholder } = project.data;
+const { title, description, tech, date, repo, demo, image, imageAlt, placeholder } = project.data;
 const { Content } = await render(project);
+
+// La captura del proyecto también sirve de vista previa al compartir el link (1200x630, jpg)
+const ogImage = image
+	? (await getImage({ src: image, width: 1200, height: 630, fit: 'cover', format: 'jpg' })).src
+	: undefined;
 ---
 
 <Layout
@@ -26,6 +33,7 @@ const { Content } = await render(project);
 	altPath={`projects/${projectSlug(project)}/`}
 	title={`${title} | Francisco Romero`}
 	description={description}
+	image={ogImage}
 >
 	<main id="main" class="mx-auto max-w-3xl px-6 py-16">
 		<a
@@ -76,6 +84,21 @@ const { Content } = await render(project);
 				)}
 			</div>
 		</header>
+
+		{image && (
+			<SkeletonImage
+				src={image}
+				alt={imageAlt ?? title}
+				width={1200}
+				height={675}
+				fit="cover"
+				format="webp"
+				loading="eager"
+				fetchpriority="high"
+				wrapperClass="mt-8 aspect-video w-full rounded-xl border border-slate-200 dark:border-slate-800"
+				class="h-full w-full object-cover"
+			/>
+		)}
 
 		{placeholder && (
 			<p class="mt-8 rounded-lg bg-amber-50 p-4 text-sm text-amber-800 dark:bg-amber-900/20 dark:text-amber-300">
