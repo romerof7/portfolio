@@ -1,6 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import About from '../../components/About.astro';
+import Experience from '../../components/Experience.astro';
+import Contact from '../../components/Contact.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
 import { languages, useTranslations, type Lang } from '../../i18n/ui';
 import { getProjects } from '../../lib/projects';
 
@@ -16,20 +21,13 @@ const featured = (await getProjects(lang)).filter((p) => p.data.featured).slice(
 
 <Layout lang={lang}>
 	<main class="mx-auto max-w-3xl px-6">
-		<section id="inicio" class="flex min-h-[80vh] scroll-mt-20 flex-col justify-center">
-			<h1 class="text-4xl font-bold tracking-tight">Francisco Romero</h1>
-			<p class="mt-4 text-lg text-slate-600 dark:text-slate-400">
-				{t('home.subtitle')}
-			</p>
-		</section>
+		<Hero lang={lang} />
+		<About lang={lang} />
+		<Experience lang={lang} />
 
-		<section id="sobre-mi" class="scroll-mt-20 py-20">
-			<h2 class="text-2xl font-semibold">{t('about.title')}</h2>
-			<p class="mt-4 text-slate-600 dark:text-slate-400">{t('soon')}</p>
-		</section>
-
-		<section id="proyectos" class="scroll-mt-20 py-20">
-			<h2 class="text-2xl font-semibold">{t('projects.featured')}</h2>
+		<section id="proyectos" class="scroll-mt-20 py-16">
+			<!-- Cada proyecto de ejemplo ya lleva su propia etiqueta -->
+			<SectionHeading lang={lang} title={t('projects.featured')} showPlaceholder={false} />
 
 			{
 				featured.length > 0 ? (
@@ -51,9 +49,6 @@ const featured = (await getProjects(lang)).filter((p) => p.data.featured).slice(
 			</a>
 		</section>
 
-		<section id="contacto" class="scroll-mt-20 py-20">
-			<h2 class="text-2xl font-semibold">{t('contact.title')}</h2>
-			<p class="mt-4 text-slate-600 dark:text-slate-400">{t('soon')}</p>
-		</section>
+		<Contact lang={lang} />
 	</main>
 </Layout>

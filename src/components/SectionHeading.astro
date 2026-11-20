@@ -1,0 +1,25 @@
+---
+import { isPlaceholder } from '../data/profile';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+	title: string;
+	/** Mostrar la etiqueta "Contenido de ejemplo" mientras isPlaceholder sea true. */
+	showPlaceholder?: boolean;
+}
+
+const { lang, title, showPlaceholder = true } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="flex flex-wrap items-center gap-3">
+	<h2 class="text-2xl font-semibold tracking-tight">{title}</h2>
+	{
+		isPlaceholder && showPlaceholder && (
+			<span class="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
+				{t('common.placeholderSection')}
+			</span>
+		)
+	}
+</div>

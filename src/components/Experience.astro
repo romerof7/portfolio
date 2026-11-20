@@ -1,0 +1,36 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { profile } from '../data/profile';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const { timeline } = profile[lang];
+---
+
+<section id="experiencia" class="scroll-mt-20 py-16">
+	<SectionHeading lang={lang} title={t('experience.title')} />
+
+	<ol class="mt-8 space-y-8 border-l border-slate-200 pl-6 dark:border-slate-800">
+		{
+			timeline.map((item) => (
+				<li class="relative">
+					<span
+						aria-hidden="true"
+						class="absolute -left-[31px] top-1.5 h-2.5 w-2.5 rounded-full bg-slate-400 ring-4 ring-white dark:bg-slate-500 dark:ring-slate-950"
+					/>
+					<p class="text-xs font-medium uppercase tracking-wide text-slate-500">
+						{item.period} · {t(item.type === 'work' ? 'experience.work' : 'experience.education')}
+					</p>
+					<h3 class="mt-1 font-semibold">{item.title}</h3>
+					<p class="text-sm text-slate-600 dark:text-slate-400">{item.place}</p>
+					<p class="mt-2 text-sm text-slate-600 dark:text-slate-400">{item.description}</p>
+				</li>
+			))
+		}
+	</ol>
+</section>

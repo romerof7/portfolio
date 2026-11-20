@@ -12,8 +12,8 @@ const t = useTranslations(lang);
 
 // Las anchors llevan el idioma para que también funcionen desde otras páginas
 const links = [
-	{ href: `/${lang}/#inicio`, label: t('nav.home') },
 	{ href: `/${lang}/#sobre-mi`, label: t('nav.about') },
+	{ href: `/${lang}/#experiencia`, label: t('nav.experience') },
 	{ href: `/${lang}/#proyectos`, label: t('nav.projects') },
 	{ href: `/${lang}/#contacto`, label: t('nav.contact') },
 ];
@@ -26,12 +26,12 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
 	class="sticky top-0 z-10 border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-950/80"
 >
 	<nav
-		class="mx-auto flex max-w-3xl items-center justify-between px-6 py-4"
+		class="mx-auto flex max-w-3xl items-center justify-between gap-4 px-6 py-3"
 		aria-label={t('nav.label')}
 	>
 		<a href={`/${lang}/`} class="font-semibold tracking-tight">FR</a>
 
-		<ul class="flex items-center gap-5 text-sm">
+		<ul class="flex flex-wrap items-center justify-end gap-x-4 gap-y-2 text-sm">
 			{
 				links.map((link) => (
 					<li>
@@ -62,8 +62,8 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
 					class="rounded-md border border-slate-300 px-2 py-1 text-xs transition-colors hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
 					aria-label={t('theme.toggle')}
 				>
-					<span class="dark:hidden">{t('theme.dark')}</span>
-					<span class="hidden dark:inline">{t('theme.light')}</span>
+					<span class="dark:hidden">🌙<span class="hidden sm:inline"> {t('theme.dark')}</span></span>
+					<span class="hidden dark:inline">☀️<span class="hidden sm:inline"> {t('theme.light')}</span></span>
 				</button>
 			</li>
 		</ul>
