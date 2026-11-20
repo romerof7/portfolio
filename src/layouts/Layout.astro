@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { profile } from '../data/profile';
 import { languages, useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
@@ -10,12 +11,38 @@ interface Props {
 	altPath?: string;
 	title?: string;
 	description?: string;
+	/** Imagen para la vista previa al compartir, relativa al sitio. */
+	image?: string;
+	/** true = que los buscadores no indexen esta página (ej. la 404). */
+	noindex?: boolean;
 }
 
-const { lang, altPath = '' } = Astro.props;
+const { lang, altPath = '', image = '/og-default.png', noindex = false } = Astro.props;
 const t = useTranslations(lang);
 const title = Astro.props.title ?? t('meta.title');
 const description = Astro.props.description ?? t('meta.description');
+
+// URLs absolutas: las necesitan Google (canonical, hreflang) y las redes (Open Graph)
+const site = Astro.site!;
+const canonical = new URL(Astro.url.pathname, site).href;
+const imageUrl = new URL(image, site).href;
+const alternates = Object.keys(languages).map((code) => ({
+	code,
+	href: new URL(`/${code}/${altPath}`, site).href,
+}));
+
+const locales: Record<Lang, string> = { es: 'es_AR', en: 'en_US' };
+const otherLocale = locales[lang === 'es' ? 'en' : 'es'];
+
+// Datos estructurados: le dicen a Google que esto es el sitio de una persona
+const personJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: profile.name,
+	url: new URL(`/${lang}/`, site).href,
+	jobTitle: profile[lang].role,
+	sameAs: [profile.contact.github],
+};
 ---
 
 <!doctype html>
@@ -23,18 +50,37 @@ const description = Astro.props.description ?? t('meta.description');
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
 		<meta name="description" content={description} />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#0f172a" />
+		{noindex && <meta name="robots" content="noindex" />}
+		<link rel="canonical" href={canonical} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
-		<title>{title}</title>
+		<link rel="sitemap" href="/sitemap-index.xml" />
 
 		<!-- Le avisa a los buscadores que existe la misma página en otro idioma -->
-		{
-			Object.keys(languages).map((code) => (
-				<link rel="alternate" hreflang={code} href={`/${code}/${altPath}`} />
-			))
-		}
+		{alternates.map((alt) => <link rel="alternate" hreflang={alt.code} href={alt.href} />)}
+		<link rel="alternate" hreflang="x-default" href={alternates[0].href} />
+
+		<!-- Vista previa al compartir (WhatsApp, LinkedIn, etc.) -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={profile.name} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={imageUrl} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:locale" content={locales[lang]} />
+		<meta property="og:locale:alternate" content={otherLocale} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageUrl} />
+
+		{!noindex && <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />}
 
 		<!-- Aplica el tema antes de pintar la página para evitar el parpadeo blanco -->
 		<script is:inline>

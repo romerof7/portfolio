@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<!--
+	La 404 se sirve en cualquier URL inexistente, así que no sabemos el idioma:
+	el contenido va en los dos idiomas.
+-->
+<Layout lang="es" title="404 | Francisco Romero" noindex>
+	<main class="mx-auto flex min-h-[70vh] max-w-3xl flex-col justify-center px-6 py-16">
+		<p class="text-sm font-medium text-slate-500">404</p>
+		<h1 class="mt-2 text-3xl font-bold tracking-tight">Página no encontrada</h1>
+		<p class="mt-3 text-slate-600 dark:text-slate-400">
+			La página que buscás no existe o se movió.
+		</p>
+
+		<h2 class="mt-10 text-xl font-semibold tracking-tight">Page not found</h2>
+		<p class="mt-3 text-slate-600 dark:text-slate-400">
+			The page you're looking for doesn't exist or has moved.
+		</p>
+
+		<div class="mt-8 flex flex-wrap gap-3 text-sm font-medium">
+			<a
+				href="/es/"
+				class="rounded-lg bg-slate-900 px-4 py-2 text-white transition-colors hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
+			>
+				Ir al inicio
+			</a>
+			<a
+				href="/en/"
+				class="rounded-lg border border-slate-300 px-4 py-2 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
+			>
+				Go to home
+			</a>
+		</div>
+	</main>
+</Layout>
