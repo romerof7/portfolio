@@ -11,7 +11,7 @@ import type { Lang } from '../i18n/ui';
  * Los campos opcionales (contacto, listas) se pueden borrar o dejar vacíos:
  * lo que no tenga datos simplemente no se muestra.
  */
-export const isPlaceholder = true;
+export const isPlaceholder = false;
 
 // Tu foto: poné UN archivo (jpg, png o webp) en src/assets/profile/ y se usa solo, ya optimizado.
 // Sin foto se muestran tus iniciales.
@@ -61,39 +61,43 @@ export const profile: Profile & Record<Lang, LocalizedProfile> = {
 	},
 
 	contact: {
-		email: 'tu-email@ejemplo.com',
-		linkedin: 'https://www.linkedin.com/in/tu-usuario',
+		email: 'fran.romero051@gmail.com',
+		linkedin: 'https://www.linkedin.com/in/francisco-romero-b03906327',
 		github: 'https://github.com/romerof7',
 	},
 
 	es: {
 		role: 'Desarrollador de software',
 		intro:
-			'Texto de ejemplo. Acá va una frase corta que explique a qué te dedicás y qué tipo de cosas te gusta construir.',
+			'Estudiante del último año de Ingeniería en Computación. Desarrollo software con foco en backend y experiencia en frontend.',
 		about: [
-			'Texto de ejemplo. Primer párrafo sobre vos: quién sos, de dónde venís y qué te llevó a la programación.',
-			'Texto de ejemplo. Segundo párrafo: en qué estás trabajando ahora, qué estás aprendiendo y qué buscás a futuro.',
+			'Estoy en el último año de Ingeniería en Computación y hace 8 meses trabajo como desarrollador de software. En el día a día me enfoco sobre todo en el backend, y también trabajo en el frontend cuando hace falta.',
+			'Me enfoco en aprender buenas prácticas de programación, como los principios SOLID y la arquitectura hexagonal, para escribir código mantenible. Busco seguir creciendo y aprender de equipos con más experiencia.',
 		],
 		stack: [
-			{ title: 'Lenguajes', items: ['Python', 'TypeScript', 'JavaScript', 'SQL'] },
-			{ title: 'Frameworks', items: ['FastAPI', 'Astro', 'React', 'Node.js'] },
-			{ title: 'Bases de datos', items: ['PostgreSQL', 'MySQL'] },
-			{ title: 'Herramientas', items: ['Git', 'GitHub', 'Linux', 'Docker'] },
+			{ title: 'Lenguajes', items: ['TypeScript', 'Python'] },
+			{ title: 'Backend', items: ['Node.js', 'Prisma', 'Microservicios'] },
+			{ title: 'Frontend', items: ['React'] },
+			{ title: 'Bases de datos', items: ['MySQL', 'Supabase'] },
+			{ title: 'Herramientas', items: ['Git', 'Docker', 'AWS'] },
+			{ title: 'IoT y hardware', items: ['Arduino', 'ESP32', 'LoRaWAN'] },
 		],
 		timeline: [
 			{
 				type: 'work',
-				period: '2025 – Actualidad',
-				title: 'Puesto de ejemplo',
-				place: 'Empresa de ejemplo',
-				description: 'Texto de ejemplo sobre qué hacés o hacías en este puesto.',
+				period: '2026 – Actualidad',
+				title: 'Desarrollador de software (pasantía)',
+				place: 'Vitolen · Área de Tecnología y Desarrollo',
+				description:
+					'Desarrollo de software dentro del área de Tecnología y Desarrollo, principalmente en el backend y también en el frontend.',
 			},
 			{
 				type: 'education',
 				period: '2021 – Actualidad',
-				title: 'Carrera de ejemplo',
-				place: 'Universidad de ejemplo',
-				description: 'Texto de ejemplo sobre tu formación.',
+				title: 'Ingeniería en Computación',
+				place: 'Universidad Nacional de Rafaela (UNRaf)',
+				description:
+					'Cursando el último año. Egreso previsto para fines de 2027 o inicios de 2028.',
 			},
 		],
 	},
@@ -101,31 +105,34 @@ export const profile: Profile & Record<Lang, LocalizedProfile> = {
 	en: {
 		role: 'Software developer',
 		intro:
-			'Example text. A short sentence explaining what you do and what kind of things you like to build.',
+			'Final-year Computer Engineering student. I build software with a focus on the backend and hands-on experience in the frontend.',
 		about: [
-			'Example text. First paragraph about you: who you are, where you come from and what led you to programming.',
-			"Example text. Second paragraph: what you're working on now, what you're learning and what you're looking for.",
+			"I'm in the final year of my Computer Engineering degree and I've been working as a software developer for 8 months. Day to day I focus mostly on the backend, and I also work on the frontend when needed.",
+			"I focus on learning good programming practices, such as SOLID principles and hexagonal architecture, to write maintainable code. I'm looking to keep growing and to learn from more experienced teams.",
 		],
 		stack: [
-			{ title: 'Languages', items: ['Python', 'TypeScript', 'JavaScript', 'SQL'] },
-			{ title: 'Frameworks', items: ['FastAPI', 'Astro', 'React', 'Node.js'] },
-			{ title: 'Databases', items: ['PostgreSQL', 'MySQL'] },
-			{ title: 'Tools', items: ['Git', 'GitHub', 'Linux', 'Docker'] },
+			{ title: 'Languages', items: ['TypeScript', 'Python'] },
+			{ title: 'Backend', items: ['Node.js', 'Prisma', 'Microservices'] },
+			{ title: 'Frontend', items: ['React'] },
+			{ title: 'Databases', items: ['MySQL', 'Supabase'] },
+			{ title: 'Tools', items: ['Git', 'Docker', 'AWS'] },
+			{ title: 'IoT & Hardware', items: ['Arduino', 'ESP32', 'LoRaWAN'] },
 		],
 		timeline: [
 			{
 				type: 'work',
-				period: '2025 – Present',
-				title: 'Example position',
-				place: 'Example company',
-				description: 'Example text about what you do or did in this position.',
+				period: '2026 – Present',
+				title: 'Software developer (internship)',
+				place: 'Vitolen · Technology and Development department',
+				description:
+					'Software development within the Technology and Development department, mainly on the backend and also on the frontend.',
 			},
 			{
 				type: 'education',
 				period: '2021 – Present',
-				title: 'Example degree',
-				place: 'Example university',
-				description: 'Example text about your education.',
+				title: 'Computer Engineering',
+				place: 'National University of Rafaela (UNRaf)',
+				description: 'In the final year. Expected graduation in late 2027 or early 2028.',
 			},
 		],
 	},
