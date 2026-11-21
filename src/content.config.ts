@@ -18,6 +18,9 @@ const projects = defineCollection({
 			image: image().optional(),
 			// Descripción de la imagen para lectores de pantalla. Si falta se usa el título.
 			imageAlt: z.string().optional(),
+			// Video de demostración (MP4 corto, sin audio) en public/videos/, ej: "/videos/mi-proyecto.mp4".
+			// Si existe, reemplaza a la imagen en la página del proyecto; la imagen sigue siendo la portada.
+			video: z.string().startsWith('/').optional(),
 			featured: z.boolean().default(false),
 			// true = contenido de ejemplo. Poné false (o borrá la línea) cuando cargues el real.
 			placeholder: z.boolean().default(false),

@@ -19,7 +19,8 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
-const { title, description, tech, date, repo, demo, image, imageAlt, placeholder } = project.data;
+const { title, description, tech, date, repo, demo, image, imageAlt, video, placeholder } =
+	project.data;
 const { Content } = await render(project);
 
 // La captura del proyecto también sirve de vista previa al compartir el link (1200x630, jpg)
@@ -85,7 +86,22 @@ const ogImage = image
 			</div>
 		</header>
 
-		{image && (
+		{video && (
+			<video
+				src={video}
+				data-demo-video
+				autoplay
+				loop
+				controls
+				muted
+				playsinline
+				preload="auto"
+				aria-label={imageAlt ?? title}
+				class="mx-auto mt-8 block w-full max-w-xl rounded-xl border border-slate-200 bg-slate-900 dark:border-slate-800"
+			></video>
+		)}
+
+		{!video && image && (
 			<SkeletonImage
 				src={image}
 				alt={imageAlt ?? title}
@@ -111,3 +127,15 @@ const ogImage = image
 		</article>
 	</main>
 </Layout>
+
+<script>
+	// Quien pidió "reducir movimiento" en su sistema no recibe el video en reproducción automática
+	// (puede darle play con los controles).
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		document.querySelectorAll<HTMLVideoElement>('video[data-demo-video]').forEach((video) => {
+			video.autoplay = false;
+			video.pause();
+			video.currentTime = 0;
+		});
+	}
+</script>
