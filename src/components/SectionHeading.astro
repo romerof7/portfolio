@@ -14,7 +14,10 @@ const t = useTranslations(lang);
 ---
 
 <div class="flex flex-wrap items-center gap-3">
-	<h2 class="text-2xl font-semibold tracking-tight">{title}</h2>
+	<h2 class="flex items-center gap-3 text-2xl font-semibold tracking-tight">
+		<span aria-hidden="true" class="h-6 w-1 shrink-0 rounded-full bg-sky-500"></span>
+		{title}
+	</h2>
 	{isPlaceholder && showPlaceholder && (
 		<span class="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
 			{t('common.placeholderSection')}
