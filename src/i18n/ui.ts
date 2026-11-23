@@ -13,6 +13,7 @@ export const ui = {
 		'meta.description':
 			'Portfolio de Francisco Romero, desarrollador de software de Rafaela, Argentina: backend con Node.js, proyectos de IoT y trabajos de la facultad.',
 		'nav.label': 'Navegación principal',
+		'nav.menu': 'Menú',
 		'a11y.skip': 'Saltar al contenido',
 		'nav.about': 'Sobre mí',
 		'nav.experience': 'Experiencia',
@@ -61,6 +62,7 @@ export const ui = {
 		'meta.description':
 			'Portfolio of Francisco Romero, a software developer from Rafaela, Argentina: Node.js backend, IoT projects and university work.',
 		'nav.label': 'Main navigation',
+		'nav.menu': 'Menu',
 		'a11y.skip': 'Skip to content',
 		'nav.about': 'About',
 		'nav.experience': 'Experience',

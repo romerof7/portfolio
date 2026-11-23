@@ -30,16 +30,16 @@ const cv = profile.cv[lang];
 
 <header class="sticky top-0 z-10 border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-950/80">
 	<nav
-		class="mx-auto flex max-w-3xl items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6"
+		class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-2 px-4 py-3 sm:gap-4 sm:px-6"
 		aria-label={t('nav.label')}
 	>
-		<a href={`/${lang}/`} class="font-semibold tracking-tight max-[380px]:hidden">
+		<a href={`/${lang}/`} class="font-semibold tracking-tight">
 			FR
 		</a>
 
-		<ul class="flex flex-wrap items-center justify-end max-[380px]:w-full max-[380px]:justify-between gap-x-2.5 gap-y-2 text-xs sm:gap-x-4 sm:text-sm">
+		<ul class="flex items-center gap-x-2 text-sm sm:gap-x-4">
 			{links.map((link) => (
-				<li>
+				<li class="hidden sm:block">
 					<a
 						href={link.href}
 						class="text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
@@ -53,7 +53,7 @@ const cv = profile.cv[lang];
 					href={`/${otherLang}/${altPath}`}
 					hreflang={otherLang}
 					lang={otherLang}
-					class="rounded-md border border-slate-300 px-1.5 py-1 text-xs uppercase sm:px-2 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
+					class="rounded-md border border-slate-300 px-2 py-1.5 text-xs uppercase transition-colors hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
 					aria-label={`${otherLang.toUpperCase()}: ${t('lang.switch')} (${languages[otherLang]})`}
 				>
 					{otherLang.toUpperCase()}
@@ -74,7 +74,7 @@ const cv = profile.cv[lang];
 				<button
 					id="theme-toggle"
 					type="button"
-					class="rounded-md border border-slate-300 px-1.5 py-1 text-xs transition-colors sm:px-2 hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
+					class="rounded-md border border-slate-300 px-2 py-1.5 text-xs transition-colors hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
 					aria-label={t('theme.toggle')}
 				>
 					<span class="dark:hidden">
@@ -85,7 +85,58 @@ const cv = profile.cv[lang];
 					</span>
 				</button>
 			</li>
+			<li class="sm:hidden">
+				<!-- Three-line button (phones only): opens the menu below -->
+				<button
+					id="menu-toggle"
+					type="button"
+					class="group rounded-md border border-slate-300 px-2 py-1.5 transition-colors hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
+					aria-label={t('nav.menu')}
+					aria-expanded="false"
+					aria-controls="mobile-menu"
+				>
+					<svg
+						class="h-4 w-4"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						aria-hidden="true"
+					>
+						<path class="group-aria-expanded:hidden" d="M4 6h16M4 12h16M4 18h16" />
+						<path class="hidden group-aria-expanded:block" d="M6 6l12 12M18 6L6 18" />
+					</svg>
+				</button>
+			</li>
 		</ul>
+
+		<!-- Phone menu: same links, bigger tap targets, and the CV button -->
+		<div id="mobile-menu" hidden class="basis-full border-t border-slate-200 pt-1 sm:hidden dark:border-slate-800">
+			<ul>
+				{links.map((link) => (
+					<li>
+						<a
+							href={link.href}
+							class="block rounded-md px-2 py-3 text-base text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+						>
+							{link.label}
+						</a>
+					</li>
+				))}
+				{cv && (
+					<li class="pt-1 pb-1">
+						<a
+							href={cv}
+							download
+							class="block rounded-md bg-slate-900 px-3 py-3 text-center text-base font-medium text-white transition-colors hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
+						>
+							{t('cv.download')}
+						</a>
+					</li>
+				)}
+			</ul>
+		</div>
 	</nav>
 </header>
 
@@ -99,5 +150,34 @@ const cv = profile.cv[lang];
 		} catch {
 			// If the browser blocks localStorage, the theme still changes for this visit
 		}
+	});
+
+	// Phone menu (three-line button)
+	const menuButton = document.getElementById('menu-toggle');
+	const menu = document.getElementById('mobile-menu');
+
+	function setMenu(open: boolean) {
+		if (!menuButton || !menu) return;
+		menu.hidden = !open;
+		menuButton.setAttribute('aria-expanded', String(open));
+	}
+
+	menuButton?.addEventListener('click', () => {
+		setMenu(menuButton.getAttribute('aria-expanded') !== 'true');
+	});
+
+	// Close after choosing a link, with Escape, or when tapping outside
+	menu?.addEventListener('click', (event) => {
+		if ((event.target as HTMLElement).closest('a')) setMenu(false);
+	});
+	document.addEventListener('keydown', (event) => {
+		if (event.key === 'Escape' && menuButton?.getAttribute('aria-expanded') === 'true') {
+			setMenu(false);
+			menuButton.focus();
+		}
+	});
+	document.addEventListener('click', (event) => {
+		const target = event.target as Node;
+		if (!menu?.contains(target) && !menuButton?.contains(target)) setMenu(false);
 	});
 </script>
