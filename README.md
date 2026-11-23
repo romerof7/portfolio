@@ -90,4 +90,3 @@ La captura del proyecto también se usa como vista previa al compartir su link. 
 - Cambiar `site` en `astro.config.mjs` por la URL real del sitio.
 - Reemplazar `public/og-default.png` por la imagen de vista previa definitiva.
 - Revisar que no quede ningún texto de ejemplo (`isPlaceholder`, `placeholder: true` y los proyectos de muestra).
-- Borrar `src/assets/projects/ejemplo.png` cuando ya no lo use ningún proyecto.
