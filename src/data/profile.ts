@@ -66,8 +66,8 @@ export const profile: Profile & Record<Lang, LocalizedProfile> = {
 
 	/** Path to your CV PDF inside /public, e.g. '/cv-es.pdf'. Without a CV the hero shows a "coming soon" label and the header button is hidden. */
 	cv: {
-		es: undefined,
-		en: undefined,
+		es: '/Francisco-Romero-CV.pdf',
+		en: '/Francisco-Romero-CV-EN.pdf',
 	},
 
 	contact: {
