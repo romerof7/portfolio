@@ -1,26 +1,23 @@
 ---
 title: 'Portfolio personal'
-description: 'Sitio web bilingüe (español e inglés) para mostrar mis proyectos y mi experiencia.'
+description: 'Sitio estático y bilingüe donde muestro mis proyectos, mi stack y mi experiencia.'
 tech: ['Astro', 'Tailwind CSS', 'TypeScript']
-image: '../../../assets/projects/personal-portfolio.png'
-imageAlt: 'Página de inicio de mi portfolio en modo oscuro, con mi nombre, mi rol y los botones Ver proyectos, Contactame y CV'
+kind: 'Proyecto personal'
+image: '../../../assets/projects/personal-portfolio-es.png'
+imageAlt: 'Inicio de este portfolio dentro de una ventana de navegador: nombre, rol y botones para ver proyectos y contactar'
 date: 2026-11-19
+priority: 6
 repo: 'https://github.com/romerof7/portfolio'
 ---
 
 ## De qué se trata
 
-Mi portfolio personal: un sitio estático y bilingüe (español e inglés) donde muestro mis proyectos, mi stack y mi experiencia. Tiene modo claro y oscuro, una página de detalle por proyecto y está optimizado para SEO y accesibilidad.
+El sitio que estás viendo: estático, bilingüe y con una página de detalle por proyecto. Cuida el SEO y la accesibilidad (navegación por teclado, datos estructurados y vista previa al compartir).
 
-## Decisiones técnicas
+## Qué hice
 
-- **Astro** para generar un sitio estático, rápido y sin backend.
-- **Tailwind CSS** para el diseño, con modo claro y oscuro.
-- **Content collections:** cada proyecto es un archivo Markdown por idioma, así sumar uno nuevo no requiere tocar el código.
-- **Calidad automatizada:** Prettier, `astro check` y un workflow de GitHub Actions que corre en cada push.
-
-## Qué aprendí
-
-- Internacionalización con rutas por idioma, etiquetas `hreflang` y URLs canónicas.
-- Accesibilidad y SEO: navegación por teclado, datos estructurados y vistas previas al compartir.
-- Automatizar chequeos con integración continua.
+- **Diseño y desarrollo** de todo el sitio, con Astro y Tailwind: estático, rápido y sin backend.
+- **Rutas por idioma** con `hreflang` y URLs canónicas.
+- **Cada proyecto es un Markdown por idioma:** sumar uno no requiere tocar el código.
+- **Tema claro y oscuro** y redirección al idioma del navegador; los videos no se reproducen solos si el sistema pide reducir movimiento.
+- **Calidad automatizada:** Prettier, `astro check` y GitHub Actions en cada push.

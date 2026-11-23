@@ -31,8 +31,8 @@ const featured = (await getProjects(lang)).filter((p) => p.data.featured).slice(
 
 			{featured.length > 0 ? (
 				<div class="mt-6 grid gap-5 sm:grid-cols-2">
-					{featured.map((project) => (
-						<ProjectCard project={project} lang={lang} />
+					{featured.map((project, index) => (
+						<ProjectCard project={project} lang={lang} wide={index === 0} />
 					))}
 				</div>
 			) : (

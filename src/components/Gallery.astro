@@ -1,0 +1,110 @@
+---
+import SkeletonImage from './SkeletonImage.astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+	items: { image: ImageMetadata; alt: string }[];
+	lang: Lang;
+	class?: string;
+}
+
+const { items, lang, class: className } = Astro.props;
+const t = useTranslations(lang);
+
+const arrow =
+	'flex h-8 w-8 items-center justify-center rounded-full bg-slate-950/70 text-base text-white ring-1 ring-white/25 backdrop-blur transition hover:bg-slate-950/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400 disabled:pointer-events-none disabled:opacity-30';
+---
+
+<section
+	data-gallery
+	aria-roledescription="carousel"
+	aria-label={t('gallery.label')}
+	class:list={['relative bg-slate-950', className]}
+>
+	<ul
+		data-track
+		tabindex="0"
+		class="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-sky-400 [&::-webkit-scrollbar]:hidden"
+	>
+		{items.map((item, i) => (
+			<li
+				class="aspect-video w-full shrink-0 snap-center"
+				role="group"
+				aria-roledescription="slide"
+				aria-label={`${i + 1} / ${items.length}`}
+			>
+				<SkeletonImage
+					src={item.image}
+					alt={item.alt}
+					width={1200}
+					height={675}
+					fit="cover"
+					format="webp"
+					loading={i === 0 ? 'eager' : 'lazy'}
+					fetchpriority={i === 0 ? 'high' : 'auto'}
+					wrapperClass="h-full w-full"
+					class="h-full w-full object-cover"
+				/>
+			</li>
+		))}
+	</ul>
+
+	<div class="absolute inset-x-0 bottom-3 flex items-center justify-center gap-3">
+		<button type="button" data-prev aria-label={t('gallery.prev')} class={arrow}>
+			<span aria-hidden="true">←</span>
+		</button>
+		<div class="flex items-center gap-2">
+			{items.map((_, i) => (
+				<button
+					type="button"
+					data-dot={i}
+					aria-label={`${t('gallery.goTo')} ${i + 1}`}
+					class="h-2.5 w-2.5 rounded-full bg-white/40 ring-1 ring-black/20 transition aria-[current=true]:w-6 aria-[current=true]:bg-sky-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400"
+				/>
+			))}
+		</div>
+		<button type="button" data-next aria-label={t('gallery.next')} class={arrow}>
+			<span aria-hidden="true">→</span>
+		</button>
+	</div>
+</section>
+
+<script>
+	document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((root) => {
+		const track = root.querySelector<HTMLElement>('[data-track]')!;
+		const prev = root.querySelector<HTMLButtonElement>('[data-prev]')!;
+		const next = root.querySelector<HTMLButtonElement>('[data-next]')!;
+		const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-dot]')];
+		const total = dots.length;
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+		const current = () => Math.round(track.scrollLeft / track.clientWidth);
+		const goTo = (i: number) =>
+			track.scrollTo({
+				left: Math.max(0, Math.min(total - 1, i)) * track.clientWidth,
+				behavior: reduce.matches ? 'auto' : 'smooth',
+			});
+		const update = () => {
+			const i = current();
+			prev.disabled = i <= 0;
+			next.disabled = i >= total - 1;
+			dots.forEach((d, n) => d.setAttribute('aria-current', String(n === i)));
+		};
+
+		prev.addEventListener('click', () => goTo(current() - 1));
+		next.addEventListener('click', () => goTo(current() + 1));
+		dots.forEach((d, n) => d.addEventListener('click', () => goTo(n)));
+		track.addEventListener('scroll', update, { passive: true });
+		track.addEventListener('keydown', (e) => {
+			if (e.key === 'ArrowLeft') {
+				e.preventDefault();
+				goTo(current() - 1);
+			} else if (e.key === 'ArrowRight') {
+				e.preventDefault();
+				goTo(current() + 1);
+			}
+		});
+		update();
+	});
+</script>

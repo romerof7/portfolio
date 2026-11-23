@@ -21,3 +21,29 @@ html {
 .skeleton-img[data-skeleton] img {
 	opacity: 0;
 }
+
+/* Cuerpo de la página de cada proyecto (ver pages/[lang]/projects/[slug].astro) */
+.project-body h2 {
+	@apply mt-10 mb-3 flex items-center gap-3 text-xl font-bold tracking-tight;
+}
+.project-body h2::before {
+	content: '';
+	@apply h-5 w-1 shrink-0 rounded-full bg-sky-500;
+}
+.project-body li::marker {
+	@apply text-sky-500;
+}
+.project-body strong {
+	@apply font-semibold text-slate-900 dark:text-white;
+}
+/* El plugin de tipografía envuelve el código en comillas invertidas: se sacan y se lo muestra como etiqueta */
+.project-body code {
+	@apply rounded-md bg-slate-100 px-1.5 py-0.5 text-[0.85em] font-medium dark:bg-slate-800;
+}
+.project-body code::before,
+.project-body code::after {
+	content: none;
+}
+.project-body img {
+	@apply rounded-xl;
+}

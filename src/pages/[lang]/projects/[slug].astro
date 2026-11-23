@@ -3,6 +3,7 @@ import { render } from 'astro:content';
 import { getImage } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
 import SkeletonImage from '../../../components/SkeletonImage.astro';
+import Gallery from '../../../components/Gallery.astro';
 import { languages, useTranslations, type Lang } from '../../../i18n/ui';
 import { formatDate, getProjects, projectSlug } from '../../../lib/projects';
 
@@ -19,14 +20,33 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
-const { title, description, tech, date, repo, demo, image, imageAlt, video, placeholder } =
-	project.data;
+const {
+	title,
+	description,
+	tech,
+	date,
+	repo,
+	demo,
+	image,
+	imageAlt,
+	video,
+	gallery,
+	kind,
+	placeholder,
+} = project.data;
 const { Content } = await render(project);
 
 // La captura del proyecto también sirve de vista previa al compartir el link (1200x630, jpg)
 const ogImage = image
 	? (await getImage({ src: image, width: 1200, height: 630, fit: 'cover', format: 'jpg' })).src
 	: undefined;
+
+const primaryButton =
+	'inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200';
+const secondaryButton =
+	'inline-flex items-center gap-1.5 rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium transition-colors hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800';
+const mediaClass =
+	'overflow-hidden rounded-2xl border border-slate-200 shadow-xl shadow-slate-900/10 dark:border-slate-800 dark:shadow-black/40';
 ---
 
 <Layout
@@ -36,7 +56,7 @@ const ogImage = image
 	description={description}
 	image={ogImage}
 >
-	<main id="main" class="mx-auto max-w-3xl px-6 py-16">
+	<main id="main" class="mx-auto max-w-3xl px-6 py-14">
 		<a
 			href={`/${lang}/projects/`}
 			class="text-sm text-slate-600 underline-offset-4 hover:underline dark:text-slate-400"
@@ -44,46 +64,39 @@ const ogImage = image
 			{t('projects.back')}
 		</a>
 
-		<header class="mt-6">
-			<h1 class="text-3xl font-bold tracking-tight">{title}</h1>
-			<time
-				datetime={date.toISOString()}
-				class="mt-2 block text-sm text-slate-500 first-letter:uppercase"
-			>
-				{formatDate(date, lang)}
-			</time>
-			<p class="mt-4 text-lg text-slate-600 dark:text-slate-400">{description}</p>
-
-			<ul class="mt-4 flex flex-wrap gap-2">
-				{tech.map((name) => (
-					<li class="rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300">
-						{name}
-					</li>
-				))}
-			</ul>
-
-			<div class="mt-5 flex flex-wrap gap-4 text-sm font-medium">
-				{repo && (
-					<a
-						href={repo}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="underline-offset-4 hover:underline"
-					>
-						{t('projects.repo')} ↗
-					</a>
+		<header class="mt-8">
+			<p class="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-wider">
+				{kind && (
+					<span class="rounded-full bg-sky-500/10 px-3 py-1 text-sky-700 ring-1 ring-sky-500/25 dark:text-sky-300">
+						{kind}
+					</span>
 				)}
-				{demo && (
-					<a
-						href={demo}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="underline-offset-4 hover:underline"
-					>
-						{t('projects.demo')} ↗
-					</a>
-				)}
-			</div>
+				<time datetime={date.toISOString()} class="text-slate-500">
+					{formatDate(date, lang)}
+				</time>
+			</p>
+			<h1 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">{title}</h1>
+			<p class="mt-4 text-lg leading-relaxed text-slate-600 dark:text-slate-400">{description}</p>
+
+			{(demo || repo) && (
+				<div class="mt-6 flex flex-wrap gap-3">
+					{demo && (
+						<a href={demo} target="_blank" rel="noopener noreferrer" class={primaryButton}>
+							{t('projects.demo')} <span aria-hidden="true">↗︎</span>
+						</a>
+					)}
+					{repo && (
+						<a
+							href={repo}
+							target="_blank"
+							rel="noopener noreferrer"
+							class={demo ? secondaryButton : primaryButton}
+						>
+							{t('projects.repo')} <span aria-hidden="true">↗︎</span>
+						</a>
+					)}
+				</div>
+			)}
 		</header>
 
 		{video && (
@@ -97,11 +110,13 @@ const ogImage = image
 				playsinline
 				preload="auto"
 				aria-label={imageAlt ?? title}
-				class="mx-auto mt-8 block w-full max-w-xl rounded-xl border border-slate-200 bg-slate-900 dark:border-slate-800"
+				class:list={[mediaClass, 'mx-auto mt-10 block max-h-[70vh] w-auto max-w-full bg-slate-900']}
 			></video>
 		)}
 
-		{!video && image && (
+		{!video && gallery && <Gallery items={gallery} lang={lang} class={`${mediaClass} mt-10`} />}
+
+		{!video && !gallery && image && (
 			<SkeletonImage
 				src={image}
 				alt={imageAlt ?? title}
@@ -111,10 +126,23 @@ const ogImage = image
 				format="webp"
 				loading="eager"
 				fetchpriority="high"
-				wrapperClass="mt-8 aspect-video w-full rounded-xl border border-slate-200 dark:border-slate-800"
+				wrapperClass={`${mediaClass} mt-10 aspect-video w-full`}
 				class="h-full w-full object-cover"
 			/>
 		)}
+
+		<div class="mt-6 rounded-2xl border border-slate-200 p-5 dark:border-slate-800">
+			<div class="flex flex-wrap items-center gap-x-3 gap-y-2">
+				<span class="text-sm font-semibold">{t('projects.stack')}</span>
+				<ul class="flex flex-wrap gap-1.5">
+					{tech.map((name) => (
+						<li class="rounded-md bg-slate-100 px-2 py-0.5 text-xs text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+							{name}
+						</li>
+					))}
+				</ul>
+			</div>
+		</div>
 
 		{placeholder && (
 			<p class="mt-8 rounded-lg bg-amber-50 p-4 text-sm text-amber-800 dark:bg-amber-900/20 dark:text-amber-300">
@@ -122,7 +150,7 @@ const ogImage = image
 			</p>
 		)}
 
-		<article class="prose prose-slate mt-10 max-w-none prose-img:rounded-xl dark:prose-invert">
+		<article class="project-body prose prose-slate mt-10 max-w-none dark:prose-invert">
 			<Content />
 		</article>
 	</main>
