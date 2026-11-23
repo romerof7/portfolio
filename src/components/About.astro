@@ -11,6 +11,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const data = profile[lang];
+const facts = data.facts;
 const stack = data.stack.filter((group) => group.items.length > 0);
 
 // Initials for the avatar when there is no photo yet
@@ -52,6 +53,32 @@ const initials = profile.name
 			))}
 		</div>
 	</div>
+
+	{facts.length > 0 && (
+		<dl class="mt-10 grid gap-x-8 gap-y-4 rounded-2xl border border-slate-200 p-5 sm:grid-cols-2 dark:border-slate-800">
+			{facts.map((fact) => (
+				<div>
+					<dt class="text-xs font-semibold uppercase tracking-wider text-sky-600 dark:text-sky-400">
+						{fact.label}
+					</dt>
+					<dd class="mt-1 text-sm text-slate-700 dark:text-slate-300">
+						{fact.href ? (
+							<a
+								href={fact.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="underline underline-offset-4 hover:text-slate-900 dark:hover:text-white"
+							>
+								{fact.value} ↗︎
+							</a>
+						) : (
+							fact.value
+						)}
+					</dd>
+				</div>
+			))}
+		</dl>
+	)}
 
 	{stack.length > 0 && (
 		<>

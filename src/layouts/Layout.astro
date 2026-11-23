@@ -41,7 +41,7 @@ const personJsonLd = {
 	name: profile.name,
 	url: new URL(`/${lang}/`, site).href,
 	jobTitle: profile[lang].role,
-	sameAs: [profile.contact.github].filter(Boolean),
+	sameAs: [profile.contact.github, profile.contact.linkedin].filter(Boolean),
 };
 ---
 

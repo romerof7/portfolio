@@ -37,10 +37,17 @@ const secondaryButton =
 		<a href={`/${lang}/#contact`} class={secondaryButton}>
 			{t('hero.ctaContact')}
 		</a>
-		{cv && (
+		{cv ? (
 			<a href={cv} download class={secondaryButton}>
 				{t('cv.download')}
 			</a>
+		) : (
+			<span
+				class="cursor-not-allowed rounded-lg border border-dashed border-slate-300 px-4 py-2 text-sm text-slate-400 dark:border-slate-700 dark:text-slate-500"
+				aria-disabled="true"
+			>
+				{t('cv.soon')}
+			</span>
 		)}
 	</div>
 </section>

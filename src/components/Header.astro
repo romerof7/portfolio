@@ -23,6 +23,9 @@ const links = [
 
 // Link to this same page in the other language
 const otherLang: Lang = lang === 'es' ? 'en' : 'es';
+
+// CV download button, shown only when the PDF exists for this language
+const cv = profile.cv[lang];
 ---
 
 <header class="sticky top-0 z-10 border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-950/80">
@@ -56,6 +59,17 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
 					{otherLang.toUpperCase()}
 				</a>
 			</li>
+			{cv && (
+				<li class="hidden sm:block">
+					<a
+						href={cv}
+						download
+						class="rounded-md bg-slate-900 px-2.5 py-1 text-xs font-medium text-white transition-colors hover:bg-slate-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
+					>
+						{t('cv.download')}
+					</a>
+				</li>
+			)}
 			<li>
 				<button
 					id="theme-toggle"

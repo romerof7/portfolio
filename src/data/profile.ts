@@ -29,6 +29,13 @@ export interface TimelineItem {
 	description: string;
 }
 
+/** A quick fact shown in the About section. `href` turns the value into a link. */
+export interface Fact {
+	label: string;
+	value: string;
+	href?: string;
+}
+
 export interface StackGroup {
 	title: string;
 	items: string[];
@@ -38,6 +45,7 @@ interface LocalizedProfile {
 	role: string;
 	intro: string;
 	about: string[];
+	facts: Fact[];
 	stack: StackGroup[];
 	timeline: TimelineItem[];
 }
@@ -49,12 +57,14 @@ interface Profile {
 	contact: { email?: string; linkedin?: string; github?: string };
 }
 
+const profileLinkedin = 'https://www.linkedin.com/in/francisco-romero-b03906327';
+
 export const profile: Profile & Record<Lang, LocalizedProfile> = {
 	name: 'Francisco Romero',
 
 	photo,
 
-	/** Path to your CV PDF inside /public, e.g. '/cv-es.pdf'. Without a CV the button is hidden. */
+	/** Path to your CV PDF inside /public, e.g. '/cv-es.pdf'. Without a CV the hero shows a "coming soon" label and the header button is hidden. */
 	cv: {
 		es: undefined,
 		en: undefined,
@@ -62,7 +72,7 @@ export const profile: Profile & Record<Lang, LocalizedProfile> = {
 
 	contact: {
 		email: 'fran.romero051@gmail.com',
-		linkedin: 'https://www.linkedin.com/in/francisco-romero-b03906327',
+		linkedin: profileLinkedin,
 		github: 'https://github.com/romerof7',
 	},
 
@@ -71,13 +81,19 @@ export const profile: Profile & Record<Lang, LocalizedProfile> = {
 		intro:
 			'Estudiante del último año de Ingeniería en Computación. Desarrollo software con foco en backend y experiencia en frontend.',
 		about: [
-			'Estoy en el último año de Ingeniería en Computación y hace 8 meses trabajo como desarrollador de software. En el día a día me enfoco sobre todo en el backend, y también trabajo en el frontend cuando hace falta.',
+			'Estoy en el último año de Ingeniería en Computación y trabajo como desarrollador de software desde mayo de 2026. En el día a día me enfoco sobre todo en el backend, y también trabajo en el frontend cuando hace falta.',
 			'Me enfoco en aprender buenas prácticas de programación, como los principios SOLID y la arquitectura hexagonal, para escribir código mantenible. Busco seguir creciendo y aprender de equipos con más experiencia.',
 		],
+		facts: [
+			{ label: 'Ubicación', value: 'Rafaela, Santa Fe, Argentina' },
+			{ label: 'Edad', value: '22 años' },
+			{ label: 'Idiomas', value: 'Español (nativo) · Inglés (intermedio)' },
+			{ label: 'Certificaciones', value: 'Ver en LinkedIn', href: profileLinkedin },
+		],
 		stack: [
-			{ title: 'Lenguajes', items: ['TypeScript', 'Python'] },
-			{ title: 'Backend', items: ['Node.js', 'Prisma', 'Microservicios'] },
-			{ title: 'Frontend', items: ['React'] },
+			{ title: 'Lenguajes', items: ['TypeScript', 'Python', 'C/C++'] },
+			{ title: 'Backend', items: ['Node.js', 'NestJS', 'Prisma', 'Microservicios'] },
+			{ title: 'Frontend', items: ['React', 'Tailwind CSS'] },
 			{ title: 'Bases de datos', items: ['MySQL', 'Supabase'] },
 			{ title: 'Herramientas', items: ['Git', 'Docker', 'AWS'] },
 			{ title: 'IoT y hardware', items: ['Arduino', 'ESP32', 'LoRaWAN'] },
@@ -85,7 +101,7 @@ export const profile: Profile & Record<Lang, LocalizedProfile> = {
 		timeline: [
 			{
 				type: 'work',
-				period: '2026 – Actualidad',
+				period: 'Mayo de 2026 – Actualidad',
 				title: 'Desarrollador de software (pasantía)',
 				place: 'Vitolen · Área de Tecnología y Desarrollo',
 				description:
@@ -107,13 +123,19 @@ export const profile: Profile & Record<Lang, LocalizedProfile> = {
 		intro:
 			'Final-year Computer Engineering student. I build software with a focus on the backend and hands-on experience in the frontend.',
 		about: [
-			"I'm in the final year of my Computer Engineering degree and I've been working as a software developer for 8 months. Day to day I focus mostly on the backend, and I also work on the frontend when needed.",
+			"I'm in the final year of my Computer Engineering degree and I've been working as a software developer since May 2026. Day to day I focus mostly on the backend, and I also work on the frontend when needed.",
 			"I focus on learning good programming practices, such as SOLID principles and hexagonal architecture, to write maintainable code. I'm looking to keep growing and to learn from more experienced teams.",
 		],
+		facts: [
+			{ label: 'Location', value: 'Rafaela, Santa Fe, Argentina' },
+			{ label: 'Age', value: '22' },
+			{ label: 'Languages', value: 'Spanish (native) · English (intermediate)' },
+			{ label: 'Certifications', value: 'See on LinkedIn', href: profileLinkedin },
+		],
 		stack: [
-			{ title: 'Languages', items: ['TypeScript', 'Python'] },
-			{ title: 'Backend', items: ['Node.js', 'Prisma', 'Microservices'] },
-			{ title: 'Frontend', items: ['React'] },
+			{ title: 'Languages', items: ['TypeScript', 'Python', 'C/C++'] },
+			{ title: 'Backend', items: ['Node.js', 'NestJS', 'Prisma', 'Microservices'] },
+			{ title: 'Frontend', items: ['React', 'Tailwind CSS'] },
 			{ title: 'Databases', items: ['MySQL', 'Supabase'] },
 			{ title: 'Tools', items: ['Git', 'Docker', 'AWS'] },
 			{ title: 'IoT & Hardware', items: ['Arduino', 'ESP32', 'LoRaWAN'] },
@@ -121,7 +143,7 @@ export const profile: Profile & Record<Lang, LocalizedProfile> = {
 		timeline: [
 			{
 				type: 'work',
-				period: '2026 – Present',
+				period: 'May 2026 – Present',
 				title: 'Software developer (internship)',
 				place: 'Vitolen · Technology and Development department',
 				description:

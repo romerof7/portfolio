@@ -19,7 +19,7 @@ Live site: https://francisco-romero.netlify.app
 - Projects as Markdown files, with optimized covers, a list, a detail page, an image gallery and an optional demo video
 - SEO: Open Graph tags, canonical URLs, `hreflang`, sitemap, `robots.txt` and structured data
 - Bilingual 404 page
-- Accessibility: skip link, keyboard navigation, reduced-motion support and Lighthouse 100/100/100/100
+- Accessibility: skip link, keyboard navigation, accessible image gallery and reduced-motion support
 
 ## Running it
 
@@ -57,11 +57,11 @@ netlify.toml          # build, language redirect and security headers
 
 ## Editing the content
 
-**Personal data:** edit `src/data/profile.ts` (one block per language). Anything you leave empty or delete (experience, stack, contact methods) is simply not shown. While `isPlaceholder` is `true`, example labels are displayed; it is `false` now.
+**Personal data:** edit `src/data/profile.ts` (one block per language). Anything you leave empty or delete (experience, stack, contact methods) is simply not shown. While `isPlaceholder` is `true`, example labels are displayed (it is `false` now). Quick facts (location, age, languages, certifications) live in `facts`; the age is written by hand, so update it on your birthday.
 
 **Photo:** put a single file (jpg, png or webp) in `src/assets/profile/`. It is resized and optimized automatically. Without a photo, the initials are shown.
 
-**CV:** copy the PDFs to `public/` (for example `public/cv-es.pdf` and `public/cv-en.pdf`) and set their paths in `cv` inside `profile.ts`. Without a CV, the button is hidden.
+**CV:** not published yet. To enable it, copy the PDFs to `public/` (for example `public/cv-es.pdf` and `public/cv-en.pdf`) and set their paths in `cv` inside `profile.ts`. The download buttons (hero and header) then use the PDF of the current language. Until then the hero shows a "coming soon" label and the header button is hidden.
 
 **A new project:** copy one of the files in `src/content/projects/es/`, change the data and repeat in `en/` with the same file name. The file name is the project URL (`/es/projects/<name>/`), so always use English names with hyphens, e.g. `my-project.md`: URLs only change language in the `/es/` or `/en/` prefix.
 

@@ -10,7 +10,8 @@ export const defaultLang: Lang = 'es';
 export const ui = {
 	es: {
 		'meta.title': 'Francisco Romero | Portfolio',
-		'meta.description': 'Portfolio de Francisco Romero',
+		'meta.description':
+			'Portfolio de Francisco Romero, desarrollador de software de Rafaela, Argentina: backend con Node.js, proyectos de IoT y trabajos de la facultad.',
 		'nav.label': 'Navegación principal',
 		'a11y.skip': 'Saltar al contenido',
 		'nav.about': 'Sobre mí',
@@ -57,7 +58,8 @@ export const ui = {
 	},
 	en: {
 		'meta.title': 'Francisco Romero | Portfolio',
-		'meta.description': "Francisco Romero's portfolio",
+		'meta.description':
+			'Portfolio of Francisco Romero, a software developer from Rafaela, Argentina: Node.js backend, IoT projects and university work.',
 		'nav.label': 'Main navigation',
 		'a11y.skip': 'Skip to content',
 		'nav.about': 'About',
