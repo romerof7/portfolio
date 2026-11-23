@@ -6,7 +6,6 @@ image: '../../../assets/projects/personal-portfolio.png'
 imageAlt: 'Página de inicio de mi portfolio en modo oscuro, con mi nombre, mi rol y los botones Ver proyectos, Contactame y CV'
 date: 2026-11-19
 repo: 'https://github.com/romerof7/portfolio'
-featured: true
 ---
 
 ## De qué se trata

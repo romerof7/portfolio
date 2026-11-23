@@ -6,7 +6,6 @@ image: '../../../assets/projects/personal-portfolio.png'
 imageAlt: 'Home page of my portfolio in dark mode, with my name, my role and the View projects, Contact me and CV buttons'
 date: 2026-11-19
 repo: 'https://github.com/romerof7/portfolio'
-featured: true
 ---
 
 ## What it is about
