@@ -4,14 +4,14 @@ import { profile } from '../data/profile';
 
 interface Props {
 	lang: Lang;
-	/** Ruta de esta página sin el idioma, ej. "projects/mi-proyecto/". Vacío = home. */
+	/** Path of this page without the language, e.g. "projects/my-project/". Empty = home. */
 	altPath?: string;
 }
 
 const { lang, altPath = '' } = Astro.props;
 const t = useTranslations(lang);
 
-// Las anchors llevan el idioma para que también funcionen desde otras páginas
+// Anchors include the language so they also work from other pages
 const links = [
 	{ href: `/${lang}/#about`, label: t('nav.about') },
 	...(profile[lang].timeline.length > 0
@@ -21,7 +21,7 @@ const links = [
 	{ href: `/${lang}/#contact`, label: t('nav.contact') },
 ];
 
-// Link a esta misma página en el otro idioma
+// Link to this same page in the other language
 const otherLang: Lang = lang === 'es' ? 'en' : 'es';
 ---
 
@@ -83,7 +83,7 @@ const otherLang: Lang = lang === 'es' ? 'en' : 'es';
 		try {
 			localStorage.setItem('theme', isDark ? 'dark' : 'light');
 		} catch {
-			// Si el navegador bloquea localStorage, el tema igual cambia en esta visita
+			// If the browser blocks localStorage, the theme still changes for this visit
 		}
 	});
 </script>

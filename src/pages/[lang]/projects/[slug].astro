@@ -36,7 +36,7 @@ const {
 } = project.data;
 const { Content } = await render(project);
 
-// La captura del proyecto también sirve de vista previa al compartir el link (1200x630, jpg)
+// The project cover also serves as the share preview for the link (1200x630, jpg)
 const ogImage = image
 	? (await getImage({ src: image, width: 1200, height: 630, fit: 'cover', format: 'jpg' })).src
 	: undefined;
@@ -157,8 +157,8 @@ const mediaClass =
 </Layout>
 
 <script>
-	// Quien pidió "reducir movimiento" en su sistema no recibe el video en reproducción automática
-	// (puede darle play con los controles).
+	// Visitors who asked their system to reduce motion don't get the video autoplaying
+	// (they can still press play with the controls).
 	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 		document.querySelectorAll<HTMLVideoElement>('video[data-demo-video]').forEach((video) => {
 			video.autoplay = false;

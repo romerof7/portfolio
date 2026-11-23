@@ -6,9 +6,9 @@ import { useTranslations, type Lang } from '../i18n/ui';
 interface Props {
 	project: Project;
 	lang: Lang;
-	/** Nivel del título según dónde se use la tarjeta (h2 si la página tiene h1, h3 bajo un h2). */
+	/** Heading level depending on where the card is used (h2 if the page has an h1, h3 under an h2). */
 	headingLevel?: 'h2' | 'h3';
-	/** Tarjeta ancha (ocupa las dos columnas, imagen a la izquierda): para el proyecto principal. */
+	/** Wide card (spans both columns, image on the left): for the main project. */
 	wide?: boolean;
 }
 

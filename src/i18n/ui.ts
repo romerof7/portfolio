@@ -106,13 +106,13 @@ export const ui = {
 
 export type UiKey = keyof (typeof ui)[typeof defaultLang];
 
-/** Devuelve el idioma de la URL (/es/..., /en/...) o el idioma por defecto. */
+/** Returns the language from the URL (/es/..., /en/...) or the default language. */
 export function getLangFromUrl(url: URL): Lang {
 	const [, first] = url.pathname.split('/');
 	return first in ui ? (first as Lang) : defaultLang;
 }
 
-/** Devuelve una función t('clave') con los textos del idioma pedido. */
+/** Returns a t('key') function with the texts of the requested language. */
 export function useTranslations(lang: Lang) {
 	return function t(key: UiKey): string {
 		return ui[lang][key] ?? ui[defaultLang][key];

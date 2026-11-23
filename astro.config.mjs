@@ -6,11 +6,11 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-	// TODO: cambiar por la URL real cuando se publique (Netlify o dominio propio).
-	// Se usa para el sitemap, las URLs canónicas y la imagen de vista previa.
+	// Keep in sync with the real site URL (Netlify site name or custom domain).
+	// Used for the sitemap, canonical URLs and the share preview image.
 	site: 'https://francisco-romero.netlify.app',
 
-	// La raíz del sitio redirige al idioma por defecto
+	// The site root redirects to the default language
 	redirects: {
 		'/': '/es/',
 	},
@@ -27,7 +27,7 @@ export default defineConfig({
 				defaultLocale: 'es',
 				locales: { es: 'es-AR', en: 'en-US' },
 			},
-			// La 404 no debe aparecer en el sitemap
+			// The 404 page must not appear in the sitemap
 			filter: (page) => !page.includes('/404'),
 		}),
 	],

@@ -26,7 +26,7 @@ const featured = (await getProjects(lang)).filter((p) => p.data.featured).slice(
 		<Experience lang={lang} />
 
 		<section id="projects" class="scroll-mt-20 py-16">
-			<!-- Cada proyecto de ejemplo ya lleva su propia etiqueta -->
+			<!-- Each example project already carries its own label -->
 			<SectionHeading lang={lang} title={t('projects.featured')} showPlaceholder={false} />
 
 			{featured.length > 0 ? (

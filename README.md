@@ -1,92 +1,102 @@
 # Portfolio · Francisco Romero
 
-Mi portfolio personal: un sitio estático y bilingüe (español e inglés) para mostrar mis proyectos, mi stack y mi experiencia.
+My personal portfolio: a static, bilingual (Spanish and English) website that showcases my projects, my stack and my experience.
 
-> **Estado:** en construcción. La estructura y el diseño están listos; el contenido todavía es de ejemplo y está marcado con etiquetas visibles en el sitio.
+Live site: https://francisco-romero.netlify.app
 
 ## Stack
 
-- [Astro](https://astro.build) (sitio estático, sin backend)
-- [Tailwind CSS](https://tailwindcss.com) con modo claro y oscuro
+- [Astro](https://astro.build) (static site, no backend)
+- [Tailwind CSS](https://tailwindcss.com) with light and dark mode
 - TypeScript
-- Content collections de Astro para los proyectos (un archivo Markdown por proyecto)
-- Prettier, `astro check` y GitHub Actions para mantener la calidad del código
+- Astro content collections for the projects (one Markdown file per project and language)
+- Prettier, `astro check` and GitHub Actions to keep the code healthy
 
-## Características
+## Features
 
-- Español (`/es/`) e inglés (`/en/`), con selector que lleva a la misma página en el otro idioma
-- Modo claro y oscuro, que respeta la preferencia del sistema y recuerda la elección
-- Proyectos como archivos Markdown, con capturas optimizadas, listado y página de detalle
-- SEO: etiquetas Open Graph, URLs canónicas, `hreflang`, sitemap, `robots.txt` y datos estructurados
-- Página 404 bilingüe
-- Accesibilidad: link para saltar al contenido, navegación por teclado y Lighthouse 100/100/100/100
+- Spanish (`/es/`) and English (`/en/`), with a switcher that goes to the same page in the other language
+- Light and dark mode that follows the system preference and remembers the choice
+- Projects as Markdown files, with optimized covers, a list, a detail page, an image gallery and an optional demo video
+- SEO: Open Graph tags, canonical URLs, `hreflang`, sitemap, `robots.txt` and structured data
+- Bilingual 404 page
+- Accessibility: skip link, keyboard navigation, reduced-motion support and Lighthouse 100/100/100/100
 
-## Cómo correrlo
+## Running it
 
-Necesitás Node 22.23.4 o superior.
+Requires Node 22.23.4 or newer.
 
 ```bash
 npm install
-npm run dev           # servidor local en http://localhost:4321
-npm run build         # genera el sitio en dist/
-npm run preview       # sirve el build para probarlo
-npm run check         # verificación de tipos (astro check)
-npm run format        # formatea el código con Prettier
-npm run format:check  # solo verifica el formato (lo usa el CI)
+npm run dev           # local server at http://localhost:4321
+npm run build         # builds the site into dist/
+npm run preview       # serves the build to try it out
+npm run check         # type checking (astro check)
+npm run format        # formats the code with Prettier
+npm run format:check  # only checks the formatting (used by CI)
 ```
 
-El workflow de GitHub Actions (`.github/workflows/ci.yml`) corre `format:check`, `check` y `build` en cada push.
+The GitHub Actions workflow (`.github/workflows/ci.yml`) runs `format:check`, `check` and `build` on every push.
 
-## Estructura
+## Structure
 
 ```
 src/
 ├── assets/
-│   ├── profile/      # tu foto (un solo archivo)
-│   └── projects/     # capturas de los proyectos
-├── components/       # Header, Hero, About, Experience, Contact, ProjectCard, Footer...
-├── content/projects/ # un .md por proyecto, dentro de es/ y en/
-├── data/profile.ts   # datos personales (rol, bio, stack, experiencia, contacto)
-├── i18n/ui.ts        # textos de la interfaz en cada idioma
-├── layouts/          # layout base con meta tags y SEO
-├── lib/              # utilidades para los proyectos
-└── pages/            # rutas: /[lang]/, /[lang]/projects/, 404, robots.txt
-public/               # favicon, imagen de vista previa, CV y archivos estáticos
-netlify.toml          # build, redirección de idioma y cabeceras de seguridad
+│   ├── profile/      # profile photo (a single file)
+│   └── projects/     # project covers and images
+├── components/       # Header, Hero, About, Experience, Contact, ProjectCard, Gallery, Footer...
+├── content/projects/ # one .md per project, inside es/ and en/
+├── data/profile.ts   # personal data (role, bio, stack, experience, contact)
+├── i18n/ui.ts        # interface texts in each language
+├── layouts/          # base layout with meta tags and SEO
+├── lib/              # project helpers
+└── pages/            # routes: /[lang]/, /[lang]/projects/, 404, robots.txt
+public/               # favicon, share preview image, demo videos, CV and static files
+netlify.toml          # build, language redirect and security headers
 ```
 
-## Cómo cargar contenido
+## Editing the content
 
-**Datos personales:** editá `src/data/profile.ts` (un bloque por idioma). Cuando estén los reales, poné `isPlaceholder = false` para quitar las etiquetas de ejemplo. Lo que dejes vacío o borres (experiencia, stack, medios de contacto) simplemente no se muestra.
+**Personal data:** edit `src/data/profile.ts` (one block per language). Anything you leave empty or delete (experience, stack, contact methods) is simply not shown. While `isPlaceholder` is `true`, example labels are displayed; it is `false` now.
 
-**Foto:** poné un solo archivo (jpg, png o webp) en `src/assets/profile/`. Se redimensiona y optimiza solo, no hace falta achicarla antes. Sin foto se muestran las iniciales.
+**Photo:** put a single file (jpg, png or webp) in `src/assets/profile/`. It is resized and optimized automatically. Without a photo, the initials are shown.
 
-**CV:** copiá los PDF a `public/` (por ejemplo `public/cv-es.pdf` y `public/cv-en.pdf`) y poné sus rutas en `cv` dentro de `profile.ts`. Sin CV, el botón queda deshabilitado.
+**CV:** copy the PDFs to `public/` (for example `public/cv-es.pdf` and `public/cv-en.pdf`) and set their paths in `cv` inside `profile.ts`. Without a CV, the button is hidden.
 
-**Un proyecto nuevo:** copiá uno de los archivos de `src/content/projects/es/`, cambiá los datos y repetí en `en/` con el mismo nombre de archivo. El nombre del archivo es la URL del proyecto (`/es/projects/<nombre>/`), así que usá siempre nombres en inglés y con guiones, ej. `mi-proyecto.md`: las URLs solo cambian de idioma en el prefijo `/es/` o `/en/`.
+**A new project:** copy one of the files in `src/content/projects/es/`, change the data and repeat in `en/` with the same file name. The file name is the project URL (`/es/projects/<name>/`), so always use English names with hyphens, e.g. `my-project.md`: URLs only change language in the `/es/` or `/en/` prefix.
 
 ```md
 ---
-title: 'Nombre del proyecto'
-description: 'Qué hace, en una o dos líneas'
+title: 'Project name'
+description: 'What it does, in one or two lines'
 tech: ['Python', 'FastAPI']
-image: '../../../assets/projects/mi-proyecto.png' # opcional: captura en src/assets/projects/
-imageAlt: 'Qué se ve en la captura' # opcional: si falta se usa el título
+kind: 'University project' # optional: short label shown on the card
+image: '../../../assets/projects/my-project.png' # optional: cover in src/assets/projects/
+imageAlt: 'What the cover shows' # optional: falls back to the title
+gallery: # optional: several images with arrows on the project page
+  - image: '../../../assets/projects/my-project.png'
+    alt: 'What the image shows'
+video: '/videos/my-project.mp4' # optional: short demo in public/videos/
 date: 2026-11-19
-repo: 'https://github.com/usuario/proyecto'
-demo: 'https://...' # opcional
-featured: true # true = aparece en la home
+priority: 1 # optional: manual order, 1 comes first
+repo: 'https://github.com/user/project'
+demo: 'https://...' # optional
+featured: true # true = shown on the home page
 ---
 
-Texto más largo del proyecto en Markdown.
+Longer description of the project, in Markdown.
 ```
 
-La captura del proyecto también se usa como vista previa al compartir su link. Conviene que sea apaisada (16:9).
+The project cover is also used as the share preview for its link, so a 16:9 image works best.
 
-**Textos de la interfaz:** `src/i18n/ui.ts`. Cada texto nuevo se agrega en `es` y en `en`.
+**Interface texts:** `src/i18n/ui.ts`. Every new text is added in both `es` and `en`.
 
-## Antes de publicar
+## Deploying
 
-- Cambiar `site` en `astro.config.mjs` por la URL real del sitio.
-- Reemplazar `public/og-default.png` por la imagen de vista previa definitiva.
-- Revisar que no quede ningún texto de ejemplo (`isPlaceholder`, `placeholder: true` y los proyectos de muestra).
+The site is deployed on Netlify; every push to `main` redeploys it. The build settings, the language redirect and the security headers live in `netlify.toml`. The site name must match `site` in `astro.config.mjs`.
+
+Before going live, check that:
+
+- `site` in `astro.config.mjs` is the real URL of the site.
+- `public/og-default.png` is the final share preview image.
+- No example text is left (`isPlaceholder`, `placeholder: true`).

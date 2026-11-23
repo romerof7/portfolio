@@ -1,4 +1,4 @@
-# Configuración de Netlify. Si publicás en otro hosting, este archivo simplemente se ignora.
+# Netlify configuration. If you deploy somewhere else, this file is simply ignored.
 
 [build]
   command = "npm run build"
@@ -7,8 +7,8 @@
 [build.environment]
   NODE_VERSION = "22"
 
-# La raíz del sitio manda a cada visita a su idioma: inglés si el navegador está en inglés,
-# español para todo lo demás. Son redirecciones 302 (no permanentes) a propósito.
+# The site root sends each visitor to their language: English if the browser is in English,
+# Spanish for everything else. These are 302 (non-permanent) redirects on purpose.
 [[redirects]]
   from = "/"
   to = "/en/"
@@ -22,7 +22,7 @@
   status = 302
   force = true
 
-# Cabeceras de seguridad para todas las páginas
+# Security headers for every page
 [[headers]]
   for = "/*"
   [headers.values]
@@ -31,7 +31,7 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
-# Los archivos de /_astro/ llevan un hash en el nombre: pueden cachearse para siempre
+# Files in /_astro/ have a hash in their name, so they can be cached forever
 [[headers]]
   for = "/_astro/*"
   [headers.values]

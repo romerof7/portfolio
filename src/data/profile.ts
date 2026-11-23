@@ -2,19 +2,19 @@ import type { ImageMetadata } from 'astro';
 import type { Lang } from '../i18n/ui';
 
 /**
- * TODOS TUS DATOS PERSONALES VIVEN ACÁ.
+ * ALL PERSONAL DATA LIVES HERE.
  *
- * Cuando cargues los reales: reemplazá los textos de ejemplo, y poné
- * `isPlaceholder = false` para que desaparezcan las etiquetas "Ejemplo".
- * (Los proyectos se cargan aparte, en src/content/projects/.)
+ * When the real data is in: replace the example texts, and set
+ * `isPlaceholder = false` so the "Example" labels disappear.
+ * (Projects are loaded separately, in src/content/projects/.)
  *
- * Los campos opcionales (contacto, listas) se pueden borrar o dejar vacíos:
- * lo que no tenga datos simplemente no se muestra.
+ * Optional fields (contact, lists) can be deleted or left empty:
+ * anything without data is simply not shown.
  */
 export const isPlaceholder = false;
 
-// Tu foto: poné UN archivo (jpg, png o webp) en src/assets/profile/ y se usa solo, ya optimizado.
-// Sin foto se muestran tus iniciales.
+// Your photo: put ONE file (jpg, png or webp) in src/assets/profile/ and it is used automatically, already optimized.
+// Without a photo, your initials are shown.
 const photos = import.meta.glob<{ default: ImageMetadata }>(
 	'../assets/profile/*.{jpg,jpeg,png,webp,avif,JPG,JPEG,PNG}',
 	{ eager: true },
@@ -54,7 +54,7 @@ export const profile: Profile & Record<Lang, LocalizedProfile> = {
 
 	photo,
 
-	/** Ruta de tu CV en PDF dentro de /public, ej. '/cv-es.pdf'. Sin CV el botón queda deshabilitado. */
+	/** Path to your CV PDF inside /public, e.g. '/cv-es.pdf'. Without a CV the button is hidden. */
 	cv: {
 		es: undefined,
 		en: undefined,

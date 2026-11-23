@@ -1,11 +1,11 @@
 name: CI
 
-# Corre en cada push a cualquier rama, así se chequea antes de mergear a main
+# Runs on every push to any branch, so changes are checked before merging into main
 on:
   push:
   pull_request:
 
-# Solo lectura: este workflow no necesita escribir nada en el repo
+# Read-only: this workflow doesn't need to write anything to the repo
 permissions:
   contents: read
 
@@ -22,10 +22,10 @@ jobs:
 
       - run: npm ci
 
-      - name: Formato (Prettier)
+      - name: Format (Prettier)
         run: npm run format:check
 
-      - name: Tipos (astro check)
+      - name: Types (astro check)
         run: npm run check
 
       - name: Build

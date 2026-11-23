@@ -11,7 +11,7 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const { email, linkedin, github } = profile.contact;
 
-// Solo se muestran los medios de contacto que tengan dato
+// Only contact methods that have a value are shown
 const links = [
 	email && { label: t('contact.email'), value: email, href: `mailto:${email}` },
 	linkedin && {

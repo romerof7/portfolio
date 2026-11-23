@@ -3,12 +3,12 @@ import type { Lang } from '../i18n/ui';
 
 export type Project = CollectionEntry<'projects'>;
 
-/** "es/mi-proyecto" -> "mi-proyecto" */
+/** "es/my-project" -> "my-project" */
 export function projectSlug(project: Project): string {
 	return project.id.split('/').slice(1).join('/');
 }
 
-/** Proyectos de un idioma: primero por `priority` (1 arriba) y, a igual prioridad, del más nuevo al más viejo. */
+/** Projects of one language: by `priority` first (1 on top) and, on a tie, newest to oldest. */
 export async function getProjects(lang: Lang): Promise<Project[]> {
 	const all = await getCollection('projects', ({ id }) => id.startsWith(`${lang}/`));
 	return all.sort(

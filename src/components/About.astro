@@ -13,7 +13,7 @@ const t = useTranslations(lang);
 const data = profile[lang];
 const stack = data.stack.filter((group) => group.items.length > 0);
 
-// Iniciales para el avatar cuando todavía no hay foto
+// Initials for the avatar when there is no photo yet
 const initials = profile.name
 	.split(' ')
 	.map((word) => word[0])

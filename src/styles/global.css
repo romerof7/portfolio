@@ -1,14 +1,14 @@
 @import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
-/* Modo oscuro controlado por la clase "dark" en <html> */
+/* Dark mode is controlled by the "dark" class on <html> */
 @custom-variant dark (&:where(.dark, .dark *));
 
 html {
 	scroll-behavior: smooth;
 }
 
-/* Esqueleto de carga de imágenes (ver components/SkeletonImage.astro) */
+/* Image loading skeleton (see components/SkeletonImage.astro) */
 .skeleton-img {
 	overflow: hidden;
 }
@@ -22,7 +22,7 @@ html {
 	opacity: 0;
 }
 
-/* Cuerpo de la página de cada proyecto (ver pages/[lang]/projects/[slug].astro) */
+/* Body of each project page (see pages/[lang]/projects/[slug].astro) */
 .project-body h2 {
 	@apply mt-10 mb-3 flex items-center gap-3 text-xl font-bold tracking-tight;
 }
@@ -36,7 +36,7 @@ html {
 .project-body strong {
 	@apply font-semibold text-slate-900 dark:text-white;
 }
-/* El plugin de tipografía envuelve el código en comillas invertidas: se sacan y se lo muestra como etiqueta */
+/* The typography plugin wraps inline code in backticks: they are removed and the code is shown as a tag */
 .project-body code {
 	@apply rounded-md bg-slate-100 px-1.5 py-0.5 text-[0.85em] font-medium dark:bg-slate-800;
 }

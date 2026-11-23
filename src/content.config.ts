@@ -2,7 +2,7 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-// Cada proyecto es un archivo .md dentro de src/content/projects/<idioma>/
+// Each project is a .md file inside src/content/projects/<language>/
 const projects = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
 	schema: ({ image }) =>
@@ -13,22 +13,22 @@ const projects = defineCollection({
 			date: z.coerce.date(),
 			repo: z.url().optional(),
 			demo: z.url().optional(),
-			// Captura del proyecto. Va en src/assets/projects/ y se referencia con ruta relativa,
-			// ej: image: "../../../assets/projects/mi-proyecto.png". Astro la optimiza sola.
+			// Project screenshot. Lives in src/assets/projects/ and is referenced with a relative path,
+			// e.g. image: "../../../assets/projects/my-project.png". Astro optimizes it automatically.
 			image: image().optional(),
-			// Descripción de la imagen para lectores de pantalla. Si falta se usa el título.
+			// Image description for screen readers. Falls back to the title when missing.
 			imageAlt: z.string().optional(),
-			// Varias imágenes con flechas en la página del proyecto (reemplazan a `image` ahí; la portada sigue siendo `image`).
+			// Several images with arrows on the project page (they replace `image` there; the cover is still `image`).
 			gallery: z.array(z.object({ image: image(), alt: z.string() })).optional(),
-			// Video de demostración (MP4 corto, sin audio) en public/videos/, ej: "/videos/mi-proyecto.mp4".
-			// Si existe, reemplaza a la imagen en la página del proyecto; la imagen sigue siendo la portada.
+			// Demo video (short MP4, no audio) in public/videos/, e.g. "/videos/my-project.mp4".
+			// If present, it replaces the image on the project page; the image is still the cover.
 			video: z.string().startsWith('/').optional(),
-			// Etiqueta corta del tipo de proyecto, ej: "Proyecto de facultad", "Hackatón NASA".
+			// Short label for the kind of project, e.g. "University project", "NASA hackathon".
 			kind: z.string().optional(),
-			// Orden manual en el listado y en la home: 1 sale primero. Sin número, va al final por fecha.
+			// Manual order in the list and on the home page: 1 comes first. Without a number, it goes last, by date.
 			priority: z.number().int().optional(),
 			featured: z.boolean().default(false),
-			// true = contenido de ejemplo. Poné false (o borrá la línea) cuando cargues el real.
+			// true = example content. Set it to false (or delete the line) once the real content is in.
 			placeholder: z.boolean().default(false),
 		}),
 });

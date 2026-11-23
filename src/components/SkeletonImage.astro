@@ -3,9 +3,9 @@ import { Image } from 'astro:assets';
 import type { ComponentProps } from 'astro/types';
 
 /**
- * Imagen optimizada que muestra un esqueleto (un bloque gris que pulsa) mientras carga.
- * Recibe las mismas props que <Image>, más `wrapperClass` para dimensionar el contenedor.
- * Al cargar (o fallar) se quita el atributo data-skeleton y la imagen aparece con un fundido.
+ * Optimized image that shows a skeleton (a pulsing gray block) while it loads.
+ * Takes the same props as <Image>, plus `wrapperClass` to size the container.
+ * Once it loads (or fails) the data-skeleton attribute is removed and the image fades in.
  */
 type Props = ComponentProps<typeof Image> & { wrapperClass?: string };
 

@@ -7,13 +7,13 @@ import { languages, useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
 	lang: Lang;
-	/** Ruta de esta página sin el idioma (vacío = home). La usan el selector de idioma y hreflang. */
+	/** Path of this page without the language (empty = home). Used by the language switcher and hreflang. */
 	altPath?: string;
 	title?: string;
 	description?: string;
-	/** Imagen para la vista previa al compartir, relativa al sitio. */
+	/** Image for the share preview, relative to the site. */
 	image?: string;
-	/** true = que los buscadores no indexen esta página (ej. la 404). */
+	/** true = search engines should not index this page (e.g. the 404). */
 	noindex?: boolean;
 }
 
@@ -22,7 +22,7 @@ const t = useTranslations(lang);
 const title = Astro.props.title ?? t('meta.title');
 const description = Astro.props.description ?? t('meta.description');
 
-// URLs absolutas: las necesitan Google (canonical, hreflang) y las redes (Open Graph)
+// Absolute URLs: Google (canonical, hreflang) and social networks (Open Graph) need them
 const site = Astro.site!;
 const canonical = new URL(Astro.url.pathname, site).href;
 const imageUrl = new URL(image, site).href;
@@ -34,7 +34,7 @@ const alternates = Object.keys(languages).map((code) => ({
 const locales: Record<Lang, string> = { es: 'es_AR', en: 'en_US' };
 const otherLocale = locales[lang === 'es' ? 'en' : 'es'];
 
-// Datos estructurados: le dicen a Google que esto es el sitio de una persona
+// Structured data: tells Google this is a person's website
 const personJsonLd = {
 	'@context': 'https://schema.org',
 	'@type': 'Person',
@@ -57,7 +57,7 @@ const personJsonLd = {
 		{noindex && <meta name="robots" content="noindex" />}
 		<link rel="canonical" href={canonical} />
 
-		<!-- Sin JavaScript no se puede quitar el esqueleto: se muestran las imágenes directamente -->
+		<!-- Without JavaScript the skeleton can't be removed: images are shown directly -->
 		<noscript>
 			<style>
 				.skeleton-img[data-skeleton] {
@@ -74,13 +74,13 @@ const personJsonLd = {
 		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
 
-		<!-- Le avisa a los buscadores que existe la misma página en otro idioma -->
+		<!-- Tells search engines the same page exists in another language -->
 		{alternates.map((alt) => (
 			<link rel="alternate" hreflang={alt.code} href={alt.href} />
 		))}
 		<link rel="alternate" hreflang="x-default" href={alternates[0].href} />
 
-		<!-- Vista previa al compartir (WhatsApp, LinkedIn, etc.) -->
+		<!-- Share preview (WhatsApp, LinkedIn, etc.) -->
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content={profile.name} />
 		<meta property="og:title" content={title} />
@@ -98,7 +98,7 @@ const personJsonLd = {
 
 		{!noindex && <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />}
 
-		<!-- Aplica el tema antes de pintar la página para evitar el parpadeo blanco -->
+		<!-- Applies the theme before painting the page to avoid a white flash -->
 		<script is:inline>
 			(function () {
 				var saved = null;
@@ -113,7 +113,7 @@ const personJsonLd = {
 		</script>
 	</head>
 	<body class="relative min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-		<!-- Para quien navega con teclado: salta el menú y va directo al contenido -->
+		<!-- For keyboard users: skips the menu and goes straight to the content -->
 		<a
 			href="#main"
 			class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:bg-slate-900 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white dark:focus:bg-white dark:focus:text-slate-900"
