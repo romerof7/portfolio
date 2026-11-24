@@ -53,7 +53,6 @@ src/
 └── pages/            # routes: /[lang]/, /[lang]/projects/, 404, robots.txt
 public/               # favicon, share preview image, demo videos, CV and static files
 vercel.json           # language redirect, security headers and cache rules
-netlify.toml          # build, language redirect and security headers
 ```
 
 ## Editing the content
