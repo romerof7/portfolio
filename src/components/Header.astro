@@ -42,21 +42,38 @@ const cv = profile.cv[lang];
 				<li class="hidden sm:block">
 					<a
 						href={link.href}
-						class="text-slate-600 transition-colors hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+						data-nav-link
+						class="text-slate-600 transition-colors hover:text-slate-900 aria-[current=true]:font-medium aria-[current=true]:text-sky-600 dark:text-slate-400 dark:hover:text-white dark:aria-[current=true]:text-sky-400"
 					>
 						{link.label}
 					</a>
 				</li>
 			))}
 			<li>
+				<!-- Shows the flag and name of the language you can switch to -->
 				<a
 					href={`/${otherLang}/${altPath}`}
 					hreflang={otherLang}
 					lang={otherLang}
-					class="rounded-md border border-slate-300 px-2 py-1.5 text-xs uppercase transition-colors hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
-					aria-label={`${otherLang.toUpperCase()}: ${t('lang.switch')} (${languages[otherLang]})`}
+					class="flex items-center gap-1.5 rounded-md border border-slate-300 px-2 py-1.5 text-xs font-medium transition-colors hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
+					title={t('lang.switch')}
+					aria-label={`${t('lang.switch')}: ${languages[otherLang]}`}
 				>
-					{otherLang.toUpperCase()}
+					<!-- Flag of the language you switch to (SVG, because emoji flags show as letters on Windows) -->
+					{otherLang === 'es' ? (
+						<svg class="h-3.5 w-5 shrink-0 rounded-[3px]" viewBox="0 0 20 14" aria-hidden="true">
+							<rect width="20" height="14" fill="#74acdf" />
+							<rect y="4.67" width="20" height="4.67" fill="#fff" />
+							<circle cx="10" cy="7" r="1.4" fill="#f6b40e" />
+						</svg>
+					) : (
+						<svg class="h-3.5 w-5 shrink-0 rounded-[3px]" viewBox="0 0 20 14" aria-hidden="true">
+							<rect width="20" height="14" fill="#fff" />
+							<path d="M0 1h20M0 5h20M0 9h20M0 13h20" stroke="#b22234" stroke-width="2" />
+							<rect width="9" height="8" fill="#3c3b6e" />
+						</svg>
+					)}
+					{languages[otherLang]}
 				</a>
 			</li>
 			{cv && (
@@ -112,13 +129,18 @@ const cv = profile.cv[lang];
 		</ul>
 
 		<!-- Phone menu: same links, bigger tap targets, and the CV button -->
-		<div id="mobile-menu" hidden class="basis-full border-t border-slate-200 pt-1 sm:hidden dark:border-slate-800">
+		<div
+			id="mobile-menu"
+			hidden
+			class="basis-full border-t border-slate-200 pt-1 sm:hidden dark:border-slate-800"
+		>
 			<ul>
 				{links.map((link) => (
 					<li>
 						<a
 							href={link.href}
-							class="block rounded-md px-2 py-3 text-base text-slate-700 transition-colors hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+							data-nav-link
+							class="block rounded-md px-2 py-3 text-base text-slate-700 transition-colors hover:bg-slate-100 aria-[current=true]:font-medium aria-[current=true]:text-sky-600 dark:text-slate-300 dark:hover:bg-slate-800 dark:aria-[current=true]:text-sky-400"
 						>
 							{link.label}
 						</a>
@@ -151,6 +173,55 @@ const cv = profile.cv[lang];
 			// If the browser blocks localStorage, the theme still changes for this visit
 		}
 	});
+
+	// Highlights the nav link of the section you are reading (home page only)
+	const navLinks = document.querySelectorAll<HTMLAnchorElement>('a[data-nav-link]');
+	const sections = [...navLinks]
+		.filter((link) => link.pathname === location.pathname && link.hash)
+		.map((link) => document.querySelector<HTMLElement>(link.hash))
+		.filter((section): section is HTMLElement => section !== null);
+
+	if (sections.length > 0 && 'IntersectionObserver' in window) {
+		const setActive = (id: string | null) => {
+			navLinks.forEach((link) => {
+				if (id !== null && link.hash === `#${id}`) link.setAttribute('aria-current', 'true');
+				else link.removeAttribute('aria-current');
+			});
+		};
+
+		// A thin band across the upper-middle of the screen: the section crossing it is "current"
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) setActive(entry.target.id);
+				}
+			},
+			{ rootMargin: '-40% 0px -55% 0px' },
+		);
+		sections.forEach((section) => observer.observe(section));
+
+		// The hero is not in the menu: back at the top, nothing is highlighted
+		const hero = document.getElementById('home');
+		if (hero) {
+			new IntersectionObserver(
+				(entries) => {
+					if (entries.some((entry) => entry.isIntersecting)) setActive(null);
+				},
+				{ rootMargin: '-40% 0px -55% 0px' },
+			).observe(hero);
+		}
+
+		// The last section can be too short to reach the band: at the very bottom it is the current one
+		window.addEventListener(
+			'scroll',
+			() => {
+				const atBottom =
+					window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+				if (atBottom) setActive(sections[sections.length - 1].id);
+			},
+			{ passive: true },
+		);
+	}
 
 	// Phone menu (three-line button)
 	const menuButton = document.getElementById('menu-toggle');

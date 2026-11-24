@@ -14,7 +14,7 @@ const { timeline } = profile[lang];
 
 {/* If nothing is loaded, the whole section disappears */}
 {timeline.length > 0 && (
-	<section id="experience" class="scroll-mt-20 py-16">
+	<section id="experience" data-reveal class="scroll-mt-20 py-16">
 		<SectionHeading lang={lang} title={t('experience.title')} />
 
 		<ol class="mt-8 space-y-8 border-l border-slate-200 pl-6 dark:border-slate-800">

@@ -5,6 +5,7 @@ tech: ['Astro', 'Tailwind CSS', 'TypeScript']
 kind: 'Personal project'
 image: '../../../assets/projects/personal-portfolio-en.png'
 imageAlt: 'Home of this portfolio inside a browser window: name, role and buttons to view projects and get in touch'
+video: '/videos/personal-portfolio.mp4'
 date: 2026-11-19
 priority: 6
 repo: 'https://github.com/romerof7/portfolio'

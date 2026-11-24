@@ -27,12 +27,21 @@ const featured = (await getProjects(lang)).filter((p) => p.data.featured).slice(
 
 		<section id="projects" class="scroll-mt-20 py-16">
 			<!-- Each example project already carries its own label -->
-			<SectionHeading lang={lang} title={t('projects.featured')} showPlaceholder={false} />
+			<div data-reveal>
+				<SectionHeading lang={lang} title={t('projects.featured')} showPlaceholder={false} />
+			</div>
 
 			{featured.length > 0 ? (
 				<div class="mt-6 grid gap-5 sm:grid-cols-2">
 					{featured.map((project, index) => (
-						<ProjectCard project={project} lang={lang} wide={index === 0} />
+						// Wrapper so the reveal doesn't clash with the card's own hover effect
+						<div
+							data-reveal
+							style={`--reveal-delay: ${index * 120}ms`}
+							class:list={[index === 0 && 'sm:col-span-2']}
+						>
+							<ProjectCard project={project} lang={lang} wide={index === 0} />
+						</div>
 					))}
 				</div>
 			) : (

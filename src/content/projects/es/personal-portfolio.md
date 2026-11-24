@@ -5,6 +5,7 @@ tech: ['Astro', 'Tailwind CSS', 'TypeScript']
 kind: 'Proyecto personal'
 image: '../../../assets/projects/personal-portfolio-es.png'
 imageAlt: 'Inicio de este portfolio dentro de una ventana de navegador: nombre, rol y botones para ver proyectos y contactar'
+video: '/videos/personal-portfolio.mp4'
 date: 2026-11-19
 priority: 6
 repo: 'https://github.com/romerof7/portfolio'

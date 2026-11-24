@@ -27,11 +27,11 @@ const linkClass =
 
 <article
 	class:list={[
-		'group relative flex overflow-hidden rounded-2xl border border-slate-200 bg-white/60 shadow-sm transition duration-300',
+		'group relative flex h-full overflow-hidden rounded-2xl border border-slate-200 bg-white/60 shadow-sm transition duration-300',
 		'hover:-translate-y-0.5 hover:border-sky-400/60 hover:shadow-lg hover:shadow-sky-500/10',
 		'dark:border-slate-800 dark:bg-slate-900/40 dark:hover:border-sky-400/50',
 		'motion-reduce:transition-none motion-reduce:hover:translate-y-0',
-		wide ? 'flex-col sm:col-span-2 sm:flex-row' : 'flex-col',
+		wide ? 'flex-col sm:flex-row' : 'flex-col',
 	]}
 >
 	{image && (

@@ -9,13 +9,36 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const year = new Date().getFullYear();
+
+// Same sections as the navbar, so the footer works as a second way around the page
+const links = [
+	{ href: `/${lang}/#about`, label: t('nav.about') },
+	...(profile[lang].timeline.length > 0
+		? [{ href: `/${lang}/#experience`, label: t('nav.experience') }]
+		: []),
+	{ href: `/${lang}/#projects`, label: t('nav.projects') },
+	{ href: `/${lang}/#contact`, label: t('nav.contact') },
+];
 ---
 
 <footer class="border-t border-slate-200 dark:border-slate-800">
-	<div class="mx-auto flex max-w-3xl flex-col items-center justify-between gap-2 px-6 py-8 text-sm text-slate-500 sm:flex-row">
+	<div class="mx-auto flex max-w-3xl flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-slate-500 sm:flex-row">
 		<p>
 			© {year} {profile.name}
 		</p>
-		<p>{t('footer.built')}</p>
+		<nav aria-label={t('footer.nav')}>
+			<ul class="flex flex-wrap justify-center gap-x-5 gap-y-2">
+				{links.map((link) => (
+					<li>
+						<a
+							href={link.href}
+							class="transition-colors hover:text-slate-900 dark:hover:text-white"
+						>
+							{link.label}
+						</a>
+					</li>
+				))}
+			</ul>
+		</nav>
 	</div>
 </footer>

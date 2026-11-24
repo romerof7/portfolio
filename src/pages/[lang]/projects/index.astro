@@ -19,8 +19,11 @@ const projects = await getProjects(lang);
 
 		{projects.length > 0 ? (
 			<div class="mt-8 grid gap-5 sm:grid-cols-2">
-				{projects.map((project) => (
-					<ProjectCard project={project} lang={lang} headingLevel="h2" />
+				{projects.map((project, index) => (
+					// Wrapper so the reveal doesn't clash with the card's own hover effect
+					<div data-reveal style={`--reveal-delay: ${(index % 2) * 120}ms`}>
+						<ProjectCard project={project} lang={lang} headingLevel="h2" />
+					</div>
 				))}
 			</div>
 		) : (
