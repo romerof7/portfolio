@@ -2,7 +2,7 @@
 
 My personal portfolio: a static, bilingual (Spanish and English) website that showcases my projects, my stack and my experience.
 
-Live site: https://francisco-romero.vercel.app
+Live site: https://francisco-romero.vercel.app/en/
 
 ## Stack
 
