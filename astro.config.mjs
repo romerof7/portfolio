@@ -6,9 +6,9 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-	// Keep in sync with the real site URL (Netlify site name or custom domain).
+	// Keep in sync with the real site URL (Vercel project name or custom domain).
 	// Used for the sitemap, canonical URLs and the share preview image.
-	site: 'https://francisco-romero.netlify.app',
+	site: 'https://francisco-romero.vercel.app',
 
 	// The site root redirects to the default language
 	redirects: {

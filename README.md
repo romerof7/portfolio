@@ -2,7 +2,7 @@
 
 My personal portfolio: a static, bilingual (Spanish and English) website that showcases my projects, my stack and my experience.
 
-Live site: https://francisco-romero.netlify.app
+Live site: https://francisco-romero.vercel.app
 
 ## Stack
 
@@ -52,6 +52,7 @@ src/
 ├── lib/              # project helpers
 └── pages/            # routes: /[lang]/, /[lang]/projects/, 404, robots.txt
 public/               # favicon, share preview image, demo videos, CV and static files
+vercel.json           # language redirect, security headers and cache rules
 netlify.toml          # build, language redirect and security headers
 ```
 
@@ -93,7 +94,7 @@ The project cover is also used as the share preview for its link, so a 16:9 imag
 
 ## Deploying
 
-The site is deployed on Netlify; every push to `main` redeploys it. The build settings, the language redirect and the security headers live in `netlify.toml`. The site name must match `site` in `astro.config.mjs`.
+The site is deployed on Vercel; every push to `main` redeploys it. The language redirect, the security headers and the cache rules live in `vercel.json`. The project name must match `site` in `astro.config.mjs`.
 
 Before going live, check that:
 
